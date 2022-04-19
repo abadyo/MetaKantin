@@ -97,28 +97,28 @@ router.get('/', (req, res, next) => {
 
 // });
 
-// router.post('/api/login', async(req, res, next) => {
-//     try {
-//         if(!req.body.username || req.body.username.length < 3){
-//             res.status(400).send("Input username must be valid or > 3 character!");
-//         };
-//         if(!req.body.password || req.body.password.length < 3){
-//             res.status(400).send("Input password must be valid or > 3 character!");
-//         };
+router.post('/api/login', async(req, res, next) => {
+    try {
+        if(!req.body.username || req.body.username.length < 3){
+            res.status(400).send("Input username must be valid or > 3 character!");
+        };
+        if(!req.body.password || req.body.password.length < 3){
+            res.status(400).send("Input password must be valid or > 3 character!");
+        };
     
-//         client.query(`SELECT * FROM MK_pengguna WHERE username = ? AND password = ?`, [req.body.username, req.body.password], (error, result)=>{
-//             if(result.length != 0) {
-//                 var token = jwt.sign({username: req.body.username, role: result[0].role, unique_id: result[0].unique_id, NRP: result[0].NRP}, config.secret, {expiresIn: 86400});
-//                 res.send({message: "success", token: token});
-//             }
-//             else res.send({message:"no record found"});
-//         });
-//         client.end;
-//     } catch(error) {
+        client.query(`SELECT * FROM MK_pengguna WHERE username = ? AND password = ?`, [req.body.username, req.body.password], (error, result)=>{
+            if(result.length != 0) {
+                var token = jwt.sign({username: req.body.username, role: result[0].role, unique_id: result[0].unique_id, NRP: result[0].NRP}, config.secret, {expiresIn: 86400});
+                res.send({message: "success", token: token});
+            }
+            else res.send({message:"no record found"});
+        });
+        client.end;
+    } catch(error) {
+        res.status(404).send(error);
+    }
 
-//     }
-
-// });
+});
 
 // router.post('/api/transfer', verifyToken,(req, res, next) => {
 //     client.query('SELECT * FROM MK_pengguna WHERE NRP= ?', req.NRP, (error1, result1) => {
