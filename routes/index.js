@@ -260,7 +260,7 @@ router.get('/api/userss', (req, res, next) => {
     client.end;
 });
 
-router.get('/api/loginn', (req, res, next) => {
+router.post('/api/loginn', (req, res, next) => {
     // client.query('SELECT * FROM MK_pengguna WHERE username = $1', [req] (error, result)=>{
     //     try {
     //         if(error) throw error;
