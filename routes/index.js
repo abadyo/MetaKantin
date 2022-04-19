@@ -110,7 +110,7 @@ router.post('/api/login', async(req, res, next) => {
     
         client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2', [req.body.username, req.body.password], (error, result) =>{
             if(result.rows) {
-                var token = jwt.sign({username: req.body.username, role: result[0].role, unique_id: result[0].unique_id, NRP: result[0].NRP}, config.secret, {expiresIn: 86400});
+                var token = jwt.sign({username: req.body.username, role: result.rows[0][role], NRP: result.rows[0][NRP]}, config.secret, {expiresIn: 86400});
                 res.send({message: "success", token: token});
             }
             else res.send({message:"no record found"});
