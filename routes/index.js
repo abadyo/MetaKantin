@@ -106,7 +106,7 @@ router.post('/api/login', async(req, res, next) => {
             res.status(400).send("Input password must be valid or > 3 character!");
         };
     
-        client.query('SELECT * FROM mk_pengguna WHERE username= ? AND password= ?;', [req.body.username, req.body.password], (error, result)=>{
+        client.query(`SELECT * FROM mk_pengguna WHERE username= ${req.body.username} AND password= ${req.body.password}`, (error, result)=>{
             if(result.rows) {
                 var token = jwt.sign({username: req.body.username, role: result[0].role, unique_id: result[0].unique_id, NRP: result[0].NRP}, config.secret, {expiresIn: 86400});
                 res.send({message: "success", token: token});
