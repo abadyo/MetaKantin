@@ -261,15 +261,15 @@ router.get('/api/userss', (req, res, next) => {
 });
 
 router.post('/api/loginn', (req, res, next) => {
-    // client.query('SELECT * FROM MK_pengguna WHERE username = $1', [req] (error, result)=>{
-    //     try {
-    //         if(error) throw error;
-    //     res.send(result.rows)
-    //     } catch(error) {
-    //         res.status(404).send('Failed')
-    //     }
-    // });
-    // client.end;
+    try {
+        client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result)=>{
+            res.send(result)
+        });
+    } catch(error) {
+        res.send(error).status(404)
+    }
+    
+    client.end;
     res.send(req.body.username);
 });
 
