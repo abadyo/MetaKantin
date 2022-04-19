@@ -54,19 +54,22 @@ router.get('/', (req, res, next) => {
 
 
 // // nampilin id tertentu
-// router.get('/api/users/:NRP', verifyToken, (req, res, next) => {
-//     if(req.role == 'administrator') {
-//         client.query('SELECT * FROM MK_pengguna WHERE NRP = ?', req.params.NRP, (error, result)=>{
-//             if(error) throw error;
-//             res.json(result);
-//         });
-//     } else {
-//         client.query('SELECT * FROM MK_pengguna WHERE NRP = ?', req.NRP, (error, result)=>{
-//             if(error) throw error;
-//             res.json(result);
-//         });
-//     }
-// });
+router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
+    try {
+        if(req.role == 'administrator') {
+            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.params.NRP], (error, result)=>{
+                res.json(result);
+            });
+        } else {
+            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.NRP], (error, result)=>{
+                res.json(result);
+            });
+        }
+    } catch(error) {
+        res.send(error).status(404)
+    }
+    client.end
+});
 
 // // tambah user
 // router.post('/api/register', (req, res, next) => {
