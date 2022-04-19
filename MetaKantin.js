@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');;
 var jsonParser = bodyParser.json();
 var app =  express();
-var client = require('../db/connection');
+var client = require('./db/connection');
 app.use(jsonParser);
 const PORT = process.env.PORT || 5000;
 
