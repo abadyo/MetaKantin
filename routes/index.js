@@ -107,7 +107,7 @@ router.post('/api/login', async(req, res, next) => {
         };
     
         client.query('SELECT * FROM mk_pengguna WHERE username= ? AND password= ?;', [req.body.username, req.body.password], (error, result)=>{
-            if(result.length != 0) {
+            if(result.rows) {
                 var token = jwt.sign({username: req.body.username, role: result[0].role, unique_id: result[0].unique_id, NRP: result[0].NRP}, config.secret, {expiresIn: 86400});
                 res.send({message: "success", token: token});
             }
