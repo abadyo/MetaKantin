@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 var express = require('express');
 var pool = require('../db');
 // semua var pool ubah je client
-var client = require('../db/connection');
+var client = require('../db/connection.js');
 var db = require('../db');
 const router = express.Router();
 
