@@ -113,11 +113,10 @@ router.post('/api/login', async(req, res, next) => {
             }
             else res.send({message:"no record found"});
         });
-        client.end;
     } catch(error) {
         res.status(404).send(error);
     }
-
+    client.end;
 });
 
 // router.post('/api/transfer', verifyToken,(req, res, next) => {
@@ -246,5 +245,17 @@ router.post('/api/login', async(req, res, next) => {
 //         });
 //     }
 // });
+
+router.get('/api/userss', (req, res, next) => {
+    client.query('SELECT * FROM MK_pengguna', (error, result)=>{
+        try {
+            if(error) throw error;
+        res.send(result)
+        } catch(error) {
+            res.status(404).send('Failed')
+        }
+    });
+    client.end;
+});
 
 module.exports = router; 
