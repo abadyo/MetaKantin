@@ -15,6 +15,8 @@ var jsonParser = bodyParser.json()
 var moment = require('moment');
 const { NULL } = require('mysql/lib/protocol/constants/types');
 
+router.use(jsonParser);
+
 router.get('/', (req, res, next) => {
     res.json({test: "Selamat Datang!"});
 });
