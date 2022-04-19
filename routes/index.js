@@ -270,7 +270,7 @@ router.post('/api/loginn', (req, res, next) => {
     //     }
     // });
     // client.end;
-    res.send(req.body.usename);
+    res.send(req.body.username);
 });
 
 module.exports = router; 
