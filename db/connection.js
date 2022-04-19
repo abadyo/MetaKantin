@@ -1,6 +1,6 @@
 const {Client} = require('pg')
 
-const client = new pg.Client({
+const client = new Client({
     host: "ec2-52-73-155-171.compute-1.amazonaws.com",
     user: "yihisgdbwznouw",
     port: 5432,
