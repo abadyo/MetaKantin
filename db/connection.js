@@ -5,7 +5,11 @@ const client = new Client({
     user: "yihisgdbwznouw",
     port: 5432,
     password: "bdb0a511e8c3e1c41249793414bee4aff1b8b7db0996daf2634d0c82c0cdc0b1",
-    database: "denfrlojvp0okh"
+    database: "denfrlojvp0okh",
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 })
 
 module.exports = client
