@@ -108,7 +108,7 @@ router.post('/api/login', async(req, res, next) => {
             res.status(400).send("Input password must be valid or > 3 character!");
         };
     
-        client.query('SELECT * FROM mk_pengguna WHERE username= $1 AND password= $2', [req.body.username, req.body.password], (error, result) =>{
+        client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2', [req.body.username, req.body.password], (error, result) =>{
             if(result.rows) {
                 var token = jwt.sign({username: req.body.username, role: result[0].role, unique_id: result[0].unique_id, NRP: result[0].NRP}, config.secret, {expiresIn: 86400});
                 res.send({message: "success", token: token});
@@ -263,7 +263,7 @@ router.get('/api/userss', (req, res, next) => {
 router.post('/api/loginn', (req, res, next) => {
     try {
         client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result)=>{
-            res.send(result)
+            res.send(result.rows)
         });
     } catch(error) {
         res.send(error).status(404)
