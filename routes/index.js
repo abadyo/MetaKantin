@@ -113,6 +113,7 @@ router.post('/api/login', (req, res, next) => {
         }
         else res.send({message:"no record found"});
     });
+    client.end;
 });
 
 router.post('/api/transfer', verifyToken,(req, res, next) => {
