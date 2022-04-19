@@ -250,7 +250,7 @@ router.get('/api/userss', (req, res, next) => {
     client.query('SELECT * FROM MK_pengguna', (error, result)=>{
         try {
             if(error) throw error;
-        res.send(result)
+        res.send(result.rows)
         } catch(error) {
             res.status(404).send('Failed')
         }
