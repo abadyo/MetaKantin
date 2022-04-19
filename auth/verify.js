@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
       // if everything good, save to request for use in other routes
       req.username = decoded.username;
       req.role = decoded.role;
-      req.unique_id = decoded.unique_id;
+      // req.unique_id = decoded.unique_id;
       req.NRP = decoded.NRP;
       next();
     });

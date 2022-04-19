@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');;
 var jsonParser = bodyParser.json();
 var app =  express();
+var client = require('../db/connection');
 app.use(jsonParser);
 const PORT = process.env.PORT || 5000;
 
@@ -13,4 +14,4 @@ app.use('/', apiRoutes);
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
 
-// tes
+client.connect();
