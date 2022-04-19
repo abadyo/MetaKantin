@@ -262,7 +262,7 @@ router.get('/api/userss', (req, res, next) => {
 
 router.post('/api/loginn', (req, res, next) => {
     try {
-        client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result)=>{
+        client.query('SELECT * FROM MK_pengguna WHERE username = "admin";', (error, result)=>{
             res.send(result)
         });
     } catch(error) {
