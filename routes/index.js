@@ -58,11 +58,11 @@ router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
     try {
         if(req.role == 'administrator') {
             client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.params.NRP], (error, result)=>{
-                res.json(result);
+                res.json(result.rows);
             });
         } else {
             client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.NRP], (error, result)=>{
-                res.json(result);
+                res.json(result.rows);
             });
         }
     } catch(error) {
@@ -72,35 +72,37 @@ router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
 });
 
 // // tambah user
-// router.post('/api/register', (req, res, next) => {
-//     if(!req.body.username || req.body.username.length < 3){
-//         res.status(400).send("Input username must be valid or > 3 character!");
-//     };
-//     if(!req.body.password || req.body.password.length < 3){
-//         res.status(400).send("Input password must be valid or > 3 character!");
-//     };
-//     if(!req.body.NRP || req.body.NRP.length < 3){
-//         res.status(400).send("Input NRP must be valid or > 3 character!");
-//     };
+router.post('/api/register', (req, res, next) => {
+    try {
+        if(!req.body.username || req.body.username.length < 3){
+            res.status(400).send("Input username must be valid or > 3 character!");
+        };
+        if(!req.body.password || req.body.password.length < 3){
+            res.status(400).send("Input password must be valid or > 3 character!");
+        };
+        if(!req.body.NRP || req.body.NRP.length < 3){
+            res.status(400).send("Input NRP must be valid or > 3 character!");
+        };
+    
+        client.query('SELECT username FROM MK_pengguna WHERE username = $1', [req.body.username], (error1, result1) => {
+            if(!result1.rows) res.status(400).send(`Username ${req.body.username} already exist`);
+            else {
+                client.query('SELECT NRP FROM MK_pengguna WHERE NRP = $1', [req.body.NRP], (error2, result2) => {
+                    if(!result2.rows) res.status(400).send(`NRP ${req.body.NRP} already exist`);
+                    else {
+                        client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result)=>{
+                            res.send(`Akun anda berhasil dibuat1 Selamat datang, ${req.body.username}`);
+                        });
+                    }
+                });
+            }
+        });
+    } catch(error) {
+        res.status(404).send(error);
+    }
 
-//     client.query('SELECT username FROM MK_pengguna WHERE username = ?', req.body.username, (error1, result1) => {
-//         if(error1) throw error1;
-//         if(result1.length != 0) res.status(400).send(`Username ${req.body.username} already exist`);
-//         else {
-//             client.query('SELECT NRP FROM MK_pengguna WHERE NRP = ?', req.body.NRP, (error2, result2) => {
-//                 if(error2) throw error2;
-//                 if(result2.length != 0) res.status(400).send(`NRP ${req.body.NRP} already exist`);
-//                 else {
-//                     client.query('INSERT INTO MK_pengguna VALUES (NULL, ?, ?, ?, ?, "user",0)', [req.body.username, req.body.password, req.body.NRP, uuidv4()], (error, result)=>{
-//                         if(error) throw error;
-//                         res.send(`Akun anda berhasil dibuat1 Selamat datang, ${req.body.username}`);
-//                     });
-//                 }
-//             });
-//         }
-//     });
 
-// });
+});
 
 router.post('/api/login', async(req, res, next) => {
     try {
