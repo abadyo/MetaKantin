@@ -13,13 +13,15 @@ const path = require('path');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json()
 
-var moment = require('moment');
-const { NULL } = require('mysql/lib/protocol/constants/types');
+// var moment = require('moment');
+// const { NULL } = require('mysql/lib/protocol/constants/types');
+// const { dirname } = require('path');
 
 router.use(jsonParser);
 
 router.get('/', (req, res, next) => {
-    res.json({test: "Selamat Datang!"});
+    res.sendfile('../html/')
+    // res.json({test: "Selamat Datang!"});
 });
 
 // // nampilin semua pengguna
