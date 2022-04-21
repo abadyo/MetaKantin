@@ -8,6 +8,7 @@ var pool = require('../db');
 var client = require('../db/connection.js');
 var db = require('../db');
 const router = express.Router();
+const path = require('path');
 
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json()
