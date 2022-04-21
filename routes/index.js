@@ -20,7 +20,7 @@ var jsonParser = bodyParser.json()
 router.use(jsonParser);
 
 router.get('/', (req, res, next) => {
-    res.sendfile('../html/')
+    res.sendFile('../html/')
     // res.json({test: "Selamat Datang!"});
 });
 
