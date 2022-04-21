@@ -20,8 +20,8 @@ var jsonParser = bodyParser.json()
 router.use(jsonParser);
 
 router.get('/', (req, res, next) => {
-    res.sendFile(__dirname + '../html/index.html')
-    // res.json({test: "Selamat Datang!"});
+    // res.sendFile(__dirname + '../html/index.html')
+    res.json({test: __dirname});
 });
 
 // // nampilin semua pengguna
