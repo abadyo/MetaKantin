@@ -11,6 +11,7 @@ const router = express.Router();
 const path = require('path');
 
 var bodyParser = require('body-parser');
+const { exit } = require('process');
 var jsonParser = bodyParser.json()
 
 // var moment = require('moment');
@@ -91,7 +92,7 @@ router.post('/api/register', (req, res, next) => {
         };
     
         client.query('SELECT username FROM MK_pengguna WHERE username = $1', [req.body.username], (error1, result1) => {
-            if(!result1.rows) res.status(400).send(`Username ${req.body.username} already exist`);
+            if(!result1.rows) res.status(400).send(`Username ${req.body.username} already exist`).end(); 
             else {
                 client.query('SELECT NRP FROM MK_pengguna WHERE NRP = $1', [req.body.NRP], (error2, result2) => {
                     if(!result2.rows) res.status(400).send(`NRP ${req.body.NRP} already exist`);
