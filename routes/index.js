@@ -91,7 +91,7 @@ router.post('/api/register', (req, res, next) => {
             res.status(400).send("Input NRP must be valid or > 3 character!");
         };
     
-        client.query('SELECT username FROM MK_pengguna WHERE username = $1', [req.body.username], (error1, result1) => {
+        client.query('SELECT EXIST (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
             if(result1.rows) {
                 res.status(400).send(`Username ${req.body.username} already exist`);
                 return; 
@@ -264,7 +264,7 @@ router.post('/api/login', async(req, res, next) => {
 // });
 
 router.get('/api/userss', (req, res, next) => {
-    client.query('SELECT * FROM MK_pengguna', (error, result)=>{
+    client.query('SELECT EXIST (SELECT * FROM MK_pengguna)', (error, result)=>{
         try {
             if(error) throw error;
         res.send(result.rows)
