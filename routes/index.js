@@ -21,7 +21,10 @@ router.use(jsonParser);
 
 router.get('/', (req, res, next) => {
     res.sendFile('/app/html/')
-    // res.json({test: (__dirname + "../")});
+});
+
+router.get('/register', (req, res, next) => {
+    res.sendFile('/app/html/register.html')
 });
 
 // // nampilin semua pengguna
