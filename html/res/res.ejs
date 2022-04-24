@@ -38,11 +38,30 @@
         <div class="card">
             <h5 class="card-header">Announcement</h5>
             <div class="card-body">
-              <h5 class="card-title text-danger" id="whatErr"><%=problem %>t</h5>
-              <p class="card-text" id="whyErr"><%=message %></p>
-              <a href="#" class="btn btn-primary" onclick="history.back()">Go back</a>
+                <% if (problem == 'Error'){ %>
+
+                <h5 class="card-title text-danger" id="whatErr">
+                    <%=problem %>
+                </h5>
+                <p class="card-text" id="whyErr">
+                    <%=message %>
+                </p>
+                <a href="#" class="btn btn-primary" onclick="history.back()">Go back</a>
+
+                <% } else if (problem == 'Success'){ %>
+
+                <h5 class="card-title text-success" id="whatErr">
+                    <%=problem %>
+                </h5>
+                <p class="card-text" id="whyErr">
+                    <%=message %>
+                </p>
+                <a href="#" class="btn btn-primary">Continue</a>  
+                
+                <% } %>
+                
             </div>
-          </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
