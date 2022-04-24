@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/register', (req, res, next) => {
-    res.sendFile('/app/html/register')
+    res.sendFile('/app/html/register.html')
 });
 
 // // nampilin semua pengguna
