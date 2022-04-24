@@ -94,7 +94,7 @@ router.post('/api/register', (req, res, next) => {
     
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
             if(result1.rows[0]["exists"] === true) {
-                res.status(400).write(`<p>Username ${req.body.username} already exist</p>`);
+                res.status(400).write(document.getElementById("whyErr").innerHTML = `<p>Username ${req.body.username} already exist</p>`);
             }
             else {
                 client.query('SELECT EXISTS (SELECT NRP FROM MK_pengguna WHERE NRP = $1)', [req.body.NRP], (error2, result2) => {
