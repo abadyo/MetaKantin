@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/register', (req, res, next) => {
-    res.sendFile('/app/html/register.html')
+    res.render('/app/html/register')
 });
 
 // // nampilin semua pengguna
@@ -94,7 +94,7 @@ router.post('/api/register', (req, res, next) => {
     
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
             if(result1.rows[0]["exists"] === true) {
-                res.render("/app/html/res/res", {"Username exist":whyerr});
+                res.render("/app/html/res/res", {message: "Username exist"});
                 
             }
             else {
