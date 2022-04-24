@@ -274,7 +274,7 @@ router.post('/api/login', async(req, res, next) => {
 // });
 
 router.get('/api/userss', (req, res, next) => {
-    client.query('SELECT EXISTS (SELECT * FROM MK_pengguna WHERE id = 1)', (error, result)=>{
+    client.query('SELECT * FROM MK_pengguna;', (error, result)=>{
         try {
             if(error) throw error;
         res.send(result.rows)
