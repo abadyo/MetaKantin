@@ -28,6 +28,10 @@ router.get('/register', (req, res, next) => {
     res.sendFile('/app/html/register.html')
 });
 
+router.get('/login', (req, res, next) => {
+    res.sendFile('/app/html/login.html')
+});
+
 // // nampilin semua pengguna
 // router.get('/api/users', verifyToken,(req, res, next) => {
 //     if(req.role == 'administrator') {
@@ -136,18 +140,33 @@ router.post('/api/register', (req, res, next) => {
 router.post('/api/login', async(req, res, next) => {
     try {
         if(!req.body.username || req.body.username.length < 3){
-            res.status(400).send("Input username must be valid or > 3 character!");
+            res.render("/app/html/res/res.ejs", {
+                message: "Input username must be valid or > 3 character!",
+                problem: "Error"
+            }).status(5); 
         };
         if(!req.body.password || req.body.password.length < 3){
-            res.status(400).send("Input password must be valid or > 3 character!");
+            res.render("/app/html/res/res.ejs", {
+                message: "Input password must be valid or > 3 character!",
+                problem: "Error"
+            }).status(5); 
         };
     
         client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2', [req.body.username, req.body.password], (error, result) =>{
             if(result.rows) {
                 var token = jwt.sign({username: req.body.username, role: result.rows[0]["role"], NRP: result.rows[0]["NRP"]}, config.secret, {expiresIn: 86400});
-                res.send({message: "success", token: token});
+                res.render("/app/html/res/res.ejs", {
+                    message: "Login Success",
+                    problem: "Success",
+                    token: token
+                }).status(4); 
             }
-            else res.send({message:"no record found"});
+            else {
+                res.render("/app/html/res/res.ejs", {
+                    message: "Ne record found, please register yourself.",
+                    problem: "Error"
+                }).status(5); 
+            }
         });
     } catch(error) {
         res.status(404).send(error);
