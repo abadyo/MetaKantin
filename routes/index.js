@@ -158,8 +158,7 @@ router.post('/api/login', async(req, res, next) => {
                 res.render("/app/html/res/res.ejs", {
                     message: "Login Success",
                     problem: "Success",
-                    token: token
-                }).status(4); 
+                }).status(4).cookie('token', token, {httpOnly: true}); 
             }
             else {
                 res.render("/app/html/res/res.ejs", {
