@@ -8,7 +8,6 @@ var pool = require('../db');
 var client = require('../db/connection.js');
 var db = require('../db');
 const router = express.Router();
-router.set('view engine', 'ejs')
 const path = require('path');
 
 var bodyParser = require('body-parser');
