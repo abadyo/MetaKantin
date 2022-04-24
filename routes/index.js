@@ -93,7 +93,10 @@ router.post('/api/register', (req, res, next) => {
     
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
             if(result1.rows[0]["exists"] === true) {
-                res.render("/app/html/res/res.ejs", {message: "Username exist"});
+                res.render("/app/html/res/res.ejs", {
+                    message: "Username exist",
+                    problem: "Error"
+                });
                 
             }
             else {
