@@ -152,8 +152,8 @@ router.post('/api/login', async(req, res, next) => {
             }).status(5); 
         };
     
-        client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2', [req.body.username, req.body.password], (error, result) =>{
-            if(result.rows) {
+        client.query('SELECT EXISTS (SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2)', [req.body.username, req.body.password], (error, result) =>{
+            if(result.rows[0]["exists"] === true) {
                 var token = jwt.sign({username: req.body.username, role: result.rows[0]["role"], NRP: result.rows[0]["NRP"]}, config.secret, {expiresIn: 86400});
                 res.render("/app/html/res/res.ejs", {
                     message: "Login Success",
