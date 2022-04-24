@@ -81,6 +81,7 @@ router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
 // // tambah user
 router.post('/api/register', (req, res, next) => {
     try {
+        res.sendFile('/app/html/res/res.html');
         if(!req.body.username || req.body.username.length < 3){
             res.status(400).send("Input username must be valid or > 3 character!");
         };
@@ -93,11 +94,11 @@ router.post('/api/register', (req, res, next) => {
     
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
             if(result1.rows[0]["exists"] === true) {
-                res.status(400).send(`Username ${req.body.username} already exist`);
+                res.status(400).send(`<p>Username ${req.body.username} already exist</p>`);
             }
             else {
                 client.query('SELECT EXISTS (SELECT NRP FROM MK_pengguna WHERE NRP = $1)', [req.body.NRP], (error2, result2) => {
-                    if(result2.rows[0]["exists"] === true) res.status(400).send(`NRP ${req.body.NRP} already exist`);
+                    if(result2.rows[0]["exists"] === true) res.status(400).send(`<p>NRP ${req.body.NRP} already exist</p>`);
                     else {
                         client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result)=>{
                             res.send(`Akun anda berhasil dibuat1 Selamat datang, ${req.body.username}`);
