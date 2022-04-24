@@ -5,6 +5,8 @@ var app =  express();
 var client = require('./db/connection');
 app.use(jsonParser);
 app.use(bodyParser.urlencoded({extended: true}))
+app.set('view engine', 'ejs');
+// app.use(express.static('public'));
 const PORT = process.env.PORT || 5000;
 
 // endpoint section

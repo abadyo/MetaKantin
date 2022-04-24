@@ -8,6 +8,7 @@ var pool = require('../db');
 var client = require('../db/connection.js');
 var db = require('../db');
 const router = express.Router();
+router.set('view engine', 'ejs')
 const path = require('path');
 
 var bodyParser = require('body-parser');
@@ -94,8 +95,7 @@ router.post('/api/register', (req, res, next) => {
     
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
             if(result1.rows[0]["exists"] === true) {
-                res.set('Content-Type', 'text/javascript');
-                res.send(Buffer.from(document.getElementById("whyErr").innerHTML = `Username ${req.body.username} already exist.`));
+                res.render("/app/html/res/res", {"Username exist":whyerr});
                 
             }
             else {
