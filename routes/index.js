@@ -61,18 +61,18 @@ router.get('/register', (req, res, next) => {
 
 
 // // nampilin id tertentu
-router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
+router.get('/api/users/:NRP', verifyToken, async (req, res, next) => {
     try {
-        if(req.role == 'administrator') {
-            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.params.NRP], (error, result)=>{
+        if (req.role == 'administrator') {
+            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.params.NRP], (error, result) => {
                 res.json(result.rows);
             });
         } else {
-            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.NRP], (error, result)=>{
+            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.NRP], (error, result) => {
                 res.json(result.rows);
             });
         }
-    } catch(error) {
+    } catch (error) {
         res.send(error).status(404)
     }
     client.end
@@ -82,55 +82,59 @@ router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
 router.post('/api/register', (req, res, next) => {
     try {
         res.sendFile('/app/html/res/res.html');
-        if(!req.body.username || req.body.username.length < 3){
+        if (!req.body.username || req.body.username.length < 3) {
             res.status(400).send("Input username must be valid or > 3 character!");
         };
-        if(!req.body.password || req.body.password.length < 3){
+        if (!req.body.password || req.body.password.length < 3) {
             res.status(400).send("Input password must be valid or > 3 character!");
         };
-        if(!req.body.NRP || req.body.NRP.length < 3){
+        if (!req.body.NRP || req.body.NRP.length < 3) {
             res.status(400).send("Input NRP must be valid or > 3 character!");
         };
-    
+
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
-            if(result1.rows[0]["exists"] === true) {
-                res.status(400).write(document.getElementById("whyErr").innerHTML = `<p>Username ${req.body.username} already exist</p>`);
+            if (result1.rows[0]["exists"] === true) {
+                res.status(400).write(
+                    <script>
+                        document.getElementById("whyErr").innerHTML = `Username ${req.body.username} already exist`
+                    </script>
+                );
             }
             else {
                 client.query('SELECT EXISTS (SELECT NRP FROM MK_pengguna WHERE NRP = $1)', [req.body.NRP], (error2, result2) => {
-                    if(result2.rows[0]["exists"] === true) res.status(400).send(`<p>NRP ${req.body.NRP} already exist</p>`);
+                    if (result2.rows[0]["exists"] === true) res.status(400).send(`<p>NRP ${req.body.NRP} already exist</p>`);
                     else {
-                        client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result)=>{
+                        client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result) => {
                             res.send(`Akun anda berhasil dibuat1 Selamat datang, ${req.body.username}`);
                         });
                     }
                 });
             }
         });
-    } catch(error) {
+    } catch (error) {
         res.status(404).send(error);
     }
 
 
 });
 
-router.post('/api/login', async(req, res, next) => {
+router.post('/api/login', async (req, res, next) => {
     try {
-        if(!req.body.username || req.body.username.length < 3){
+        if (!req.body.username || req.body.username.length < 3) {
             res.status(400).send("Input username must be valid or > 3 character!");
         };
-        if(!req.body.password || req.body.password.length < 3){
+        if (!req.body.password || req.body.password.length < 3) {
             res.status(400).send("Input password must be valid or > 3 character!");
         };
-    
-        client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2', [req.body.username, req.body.password], (error, result) =>{
-            if(result.rows) {
-                var token = jwt.sign({username: req.body.username, role: result.rows[0]["role"], NRP: result.rows[0]["NRP"]}, config.secret, {expiresIn: 86400});
-                res.send({message: "success", token: token});
+
+        client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2', [req.body.username, req.body.password], (error, result) => {
+            if (result.rows) {
+                var token = jwt.sign({ username: req.body.username, role: result.rows[0]["role"], NRP: result.rows[0]["NRP"] }, config.secret, { expiresIn: 86400 });
+                res.send({ message: "success", token: token });
             }
-            else res.send({message:"no record found"});
+            else res.send({ message: "no record found" });
         });
-    } catch(error) {
+    } catch (error) {
         res.status(404).send(error);
     }
     client.end;
@@ -264,11 +268,11 @@ router.post('/api/login', async(req, res, next) => {
 // });
 
 router.get('/api/userss', (req, res, next) => {
-    client.query('SELECT EXISTS (SELECT * FROM MK_pengguna WHERE id = 1)', (error, result)=>{
+    client.query('SELECT EXISTS (SELECT * FROM MK_pengguna WHERE id = 1)', (error, result) => {
         try {
-            if(error) throw error;
-        res.send(result.rows)
-        } catch(error) {
+            if (error) throw error;
+            res.send(result.rows)
+        } catch (error) {
             res.status(404).send('Failed')
         }
     });
@@ -277,13 +281,13 @@ router.get('/api/userss', (req, res, next) => {
 
 router.post('/api/loginn', (req, res, next) => {
     try {
-        client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result)=>{
+        client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result) => {
             res.send(result.rows)
         });
-    } catch(error) {
+    } catch (error) {
         res.send(error).status(404)
     }
-    
+
     client.end;
 });
 
