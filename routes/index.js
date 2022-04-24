@@ -81,7 +81,6 @@ router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
 // // tambah user
 router.post('/api/register', (req, res, next) => {
     try {
-        res.sendFile('/app/html/res/res.html');
         if(!req.body.username || req.body.username.length < 3){
             res.status(400).send("Input username must be valid or > 3 character!");
         };
