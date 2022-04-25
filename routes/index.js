@@ -327,7 +327,7 @@ router.post('/api/loginn', (req, res, next) => {
 
 router.get('/api/kantin', (req, res, next) => {
     try {
-        client.query('SELECT nama, lokasi, kode FROM mk_kantin;', [req.body.username], (error, result)=>{
+        client.query('SELECT * FROM mk_kantin;', [req.body.username], (error, result)=>{
             res.send(result.rows)
         });
     } catch(error) {
