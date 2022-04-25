@@ -15,8 +15,8 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">MetaKantin</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-contr ols="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-contr
+            ols="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -45,35 +45,14 @@
     </nav>
 
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="kantin">
             <div class="col-md-auto">
                 <div class="card mx-auto mt-4" style="width: 18rem;">
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-auto">
-                <div class="card mx-auto mt-4" style="width: 18rem;">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-auto">
-                <div class="card mx-auto mt-4" style="width: 18rem;">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the
                             card's content.</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
@@ -91,6 +70,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+
+    <script>
+        $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/kantin',
+            dataType: "json", //to parse string into JSON object,
+            success: function (data) {
+                if (data) {
+                    for (let i = 0; i < data.length; i++) {
+                        $('#kantin').append(
+                            '<div class="col-md-auto">' + 
+                            '<div class="card mx-auto mt-4" style="width: 18rem;">' + 
+                            '<img src="https://via.placeholder.com/150" class="card-img-top" alt="...">' + 
+                            '<div class="card-body">' + 
+                            '<h5 class="card-title">' + data[i].nama + '</h5>' + 
+                            '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p>' + 
+                            '<a href="#" class="btn btn-primary">Go somewhere</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+    </script>   
 </body>
 
 </html>
