@@ -325,4 +325,16 @@ router.post('/api/loginn', (req, res, next) => {
     client.end;
 });
 
+router.get('/api/kantin', (req, res, next) => {
+    try {
+        client.query('SELECT nama, lokasi, kode FROM mk_kantin;', [req.body.username], (error, result)=>{
+            res.send(result.rows)
+        });
+    } catch(error) {
+        res.send(error).status(404)
+    }
+    
+    client.end;
+});
+
 module.exports = router; 
