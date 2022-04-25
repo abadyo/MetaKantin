@@ -32,6 +32,10 @@ router.get('/login', (req, res, next) => {
     res.sendFile('/app/html/login.html')
 });
 
+router.get('/kantin', (req, res, next) => {
+    res.sendFile('/app/html/kantin.html')
+});
+
 // // nampilin semua pengguna
 // router.get('/api/users', verifyToken,(req, res, next) => {
 //     if(req.role == 'administrator') {
