@@ -37,17 +37,21 @@ router.get('/kantin', (req, res, next) => {
 });
 
 // // nampilin semua pengguna
-// router.get('/api/users', verifyToken,(req, res, next) => {
-//     if(req.role == 'administrator') {
-//         client.query('SELECT * FROM MK_pengguna', (error, result)=>{
-//             if(error) throw error;
-//             res.send(result)
-//         });
-//     } else {
-//         res.send({message: "You dont have permisiion"});
-//     }
-//     // res.json({test: "Selamat Datang!"});
-// });
+router.get('/api/users', verifyToken,(req, res, next) => {
+    try {
+        if(req.role == 'administrator') {
+            client.query('SELECT * FROM mk_pengguna', (error, result)=>{
+                res.send(result.rows)
+            });
+        } else {
+            res.send({message: "You dont have permisiion"});
+        }
+    } catch(error) {
+        res.send(error).status(404);
+    }
+    
+    // res.json({test: "Selamat Datang!"});
+});
 
 // router.put('/api/user/:NRP', verifyToken,(req, res, next) => {
 //     if(req.body.username == null || req.body.password == null) {
@@ -69,22 +73,22 @@ router.get('/kantin', (req, res, next) => {
 
 
 // // nampilin id tertentu
-router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
-    try {
-        if(req.role == 'administrator') {
-            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.params.NRP], (error, result)=>{
-                res.json(result.rows);
-            });
-        } else {
-            client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.NRP], (error, result)=>{
-                res.json(result.rows);
-            });
-        }
-    } catch(error) {
-        res.send(error).status(404)
-    }
-    client.end
-});
+// router.get('/api/users/:NRP', verifyToken, async(req, res, next) => {
+//     try {
+//         if(req.role == 'administrator') {
+//             client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.params.NRP], (error, result)=>{
+//                 res.json(result.rows);
+//             });
+//         } else {
+//             client.query('SELECT * FROM MK_pengguna WHERE NRP = $1', [req.NRP], (error, result)=>{
+//                 res.json(result.rows);
+//             });
+//         }
+//     } catch(error) {
+//         res.send(error).status(404)
+//     }
+//     client.end
+// });
 
 // // tambah user
 router.post('/api/register', (req, res, next) => {
