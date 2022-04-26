@@ -253,9 +253,9 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
         if (req.body.emoney == 'metamoney') {
             client.query('SELECT username, cash FROM mk_pengguna WHERE username = $1 AND password = $2', [req.username, req.body.password], (error1, result1) => {
                 if(result1.rowCount > 0) {
-                    res.setHeader('Content-Type', 'application/json');
-                    res.end(JSON.stringify(result1.rows[0]["cash"], null, 3)); 
-                    // if(result1.rows[0]["cash"] < req.body.harga) {
+                    // res.setHeader('Content-Type', 'application/json');
+                    // res.end(JSON.stringify(result1.rows[0]["cash"], null, 3)); 
+                    if(result1.rows[0]["cash"] < req.body.harga) {
                     //     client.query('UPDATE mk_pengguna SET cash = cash - $1 WHERE username = $2', [req.body.harga, req.username], (error2, result2) => {
                     //         if(result2.rowCount != 0) {
                     //             // client.query(' UPDATE mk_kantin SET cash = cash + $1', [req.body.harga]);
@@ -270,7 +270,9 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                     //                 }, null, 3)); 
                     //         }
                     //     });
-                    // }
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify(result1.rows, null, 3));
+                    }
                 } else {
                     res.setHeader('Content-Type', 'application/json');
                     res.end(JSON.stringify({ 
