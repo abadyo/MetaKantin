@@ -198,7 +198,12 @@ router.post('/api/login', async(req, res, next) => {
 router.get('/api/kantin/:kode', (req, res, next) => {
     try {
         client.query('SELECT * FROM mk_kantin WHERE kode = $1;',[req.params.kode], (error, result)=>{
-            res.send(result.rows)
+            res.render("/app/html/kantinView.ejs", {
+                nama: res.rows[0]["nama"],
+                lokasi: res.rows[0]["lokasi"],
+                kode: res.rows[0]["kode"],
+            });
+            res.status(4)
         });
     } catch(error) {
         res.send(error).status(404)
