@@ -165,12 +165,13 @@ router.post('/api/login', async(req, res, next) => {
                 var token = '';
                 client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result1) => {
                     token = jwt.sign({username: req.body.username, role: result1.rows[0]["role"], NRP: result1.rows[0]["NRP"]}, config.secret, {expiresIn: 86400});
+                    res.cookie('token', token, {maxAge: 86400, httpOnly:true});
+                    res.render("/app/html/res/res.ejs", {
+                        message: "Login Success",
+                        problem: "Success",
+                    });
+                    res.status(4);
                 });
-                res.cookie('token', token, {maxAge: 86400, httpOnly:true});
-                res.render("/app/html/res/res.ejs", {
-                    message: "Login Success",
-                    problem: "Success",
-                }).status(4);
             }
             else {
                 res.render("/app/html/res/res.ejs", {
