@@ -276,10 +276,6 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                     }, null, 3));   
                 }
             });
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ 
-                message: "tes" 
-            }, null, 3));
         } else if (req.body.emoney == 'other') {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ 
