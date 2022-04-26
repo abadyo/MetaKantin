@@ -97,19 +97,22 @@ router.post('/api/register', (req, res, next) => {
             res.render("/app/html/res/res.ejs", {
                 message: "Input username must be valid or > 3 character!",
                 problem: "Error"
-            }).status(5); 
+            }); 
+            res.status(5); 
         };
         if(!req.body.password || req.body.password.length < 3){
             res.render("/app/html/res/res.ejs", {
                 message: "Input password must be valid or > 3 character!",
                 problem: "Error"
-            }).status(5); 
+            }); 
+            res.status(5); 
         };
         if(!req.body.NRP || req.body.NRP.length < 3){
             res.render("/app/html/res/res.ejs", {
                 message: "Input NRP must be valid or > 3 character!",
                 problem: "Error"
-            }).status(5); 
+            }); 
+            res.status(5); 
         };
     
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
@@ -117,7 +120,8 @@ router.post('/api/register', (req, res, next) => {
                 res.render("/app/html/res/res.ejs", {
                     message: "Username exist",
                     problem: "Error"
-                }).status(5);        
+                }); 
+                res.status(5);        
             }
             else {
                 client.query('SELECT EXISTS (SELECT NRP FROM MK_pengguna WHERE NRP = $1)', [req.body.NRP], (error2, result2) => {
@@ -125,14 +129,16 @@ router.post('/api/register', (req, res, next) => {
                         res.render("/app/html/res/res.ejs", {
                             message: "NRP exist",
                             problem: "Error"
-                        }).status(5);  
+                        }); 
+                        res.status(5); 
                     }
                     else {
                         client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result)=>{
                             res.render("/app/html/res/res.ejs", {
                                 message: "Register Success! Welcome, " + req.body.username,
                                 problem: "Success"
-                            }).status(4); 
+                            }); 
+                            res.status(4); 
                         });
                     }
                 });
@@ -151,13 +157,15 @@ router.post('/api/login', async(req, res, next) => {
             res.render("/app/html/res/res.ejs", {
                 message: "Input username must be valid or > 3 character!",
                 problem: "Error"
-            }).status(5); 
+            });
+            res.status(5);  
         };
         if(!req.body.password || req.body.password.length < 3){
             res.render("/app/html/res/res.ejs", {
                 message: "Input password must be valid or > 3 character!",
                 problem: "Error"
-            }).status(5); 
+            }); 
+            res.status(5); 
         };
     
         client.query('SELECT EXISTS (SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2)', [req.body.username, req.body.password], (error, result) =>{
@@ -177,7 +185,8 @@ router.post('/api/login', async(req, res, next) => {
                 res.render("/app/html/res/res.ejs", {
                     message: "Ne record found, please register yourself.",
                     problem: "Error"
-                }).status(5); 
+                });
+                res.status(5); 
             }
         });
     } catch(error) {
