@@ -259,7 +259,7 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                     res.end(JSON.stringify({
                         message: req.body.harga,
                         a: result1.rows[0]["cash"],
-                        b: result1.rows[0]["cash"] - req.body.harga
+                        b: result1.rows[0]["cash"] > req.body.harga
                     }, null, 3));
                     // if(result1.rows[0]["cash"] < req.body.harga) {
                     //     client.query('UPDATE mk_pengguna SET cash = cash - $1 WHERE username = $2', [req.body.harga, req.username], (error2, result2) => {
