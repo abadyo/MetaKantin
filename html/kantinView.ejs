@@ -76,6 +76,10 @@
     <div class="container text-center">
         <form action="/api/pay" method="post">
             <div class="form-group">
+                <label for="kodetoko">Kode Kantin</label>
+                <input type="text" readonly class="form-control" id="kodetoko" aria-describedby="emailHelp" name="kode" value=<%=kode %>>
+            </div>
+            <div class="form-group">
                 <label for="exampleInputEmail1">Nilai</label>
                 <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     placeholder="Masukkan harga yang mau dibayar" name="harga">
