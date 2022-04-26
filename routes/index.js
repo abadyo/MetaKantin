@@ -266,7 +266,7 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                     if(result1.rows[0]["cash"] > req.body.harga) {
                         client.query('UPDATE mk_pengguna SET cash = cash - $1 WHERE username = $2', [req.body.harga, req.username], (error2, result2) => {
                             if(result2.rowCount != 0) {
-                                client.query(' UPDATE mk_kantin SET cash = cash + $1 WHERE ', [req.body.harga]);
+                                client.query(' UPDATE mk_kantin SET cash = cash + $1 WHERE kode = $2', [req.body.harga, req.body.kode]);
                                 res.setHeader('Content-Type', 'application/json');
                                 res.end(JSON.stringify({ 
                                     message: "Transaksi berhasil" 
