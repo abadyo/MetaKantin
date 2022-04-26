@@ -253,17 +253,17 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
         if (req.body.emoney == 'metamoney') {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ 
-                message: req.body.emoney 
+                message: "tes" 
             }, null, 3));
         } else if (req.body.emoney == 'other') {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ 
-                message: req.body.emoney 
+                message: "two"
             }, null, 3));
         } else {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ 
-                message: req.body.emoney 
+                message: "hello"
             }, null, 3));
         }
         // client.query('SELECT * FROM MK_pengguna WHERE NRP= $1', [req.NRP], (error1, result1) => {
