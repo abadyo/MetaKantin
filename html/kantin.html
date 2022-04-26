@@ -9,11 +9,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <title>Responds</title>
+
+    <style>
+        .kembali {
+            transition: transform 200ms;
+        }
+        .kembali:hover {
+            transform:translateX(-5px)
+        }
+    </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="" class="kembali"><i class="bi bi-chevron-double-left text-white mr-3"></i></a>
         <a class="navbar-brand" href="/">MetaKantin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-contr
             ols="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,15 +43,6 @@
                 </li>
             </ul> -->
 
-            <ul class="navbar-nav ml-auto">
-                <div class="dropdown-divider"></div>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul>
         </div>
     </nav>
 
@@ -59,7 +61,7 @@
                 </div>
             </div> -->
         </div>
-    </div>  
+    </div>
 
     <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -89,8 +91,8 @@
                             '<div class="card-body">' +
                             '<h5 class="card-title">' + data[i].nama + '</h5>' +
                             '<h6 class="card-subtitle mb-2 text-muted">' + data[i].kode + '</h6>' +
-                            '<p class="card-text">' + data[i].lokasi +'</p>' +
-                            '<a href="/api/kantin/' + data[i].kode + '"' +  'class="btn btn-primary">Go somewhere</a>' +
+                            '<p class="card-text">' + data[i].lokasi + '</p>' +
+                            '<a href="/api/kantin/' + data[i].kode + '"' + 'class="btn btn-primary">Go somewhere</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>'

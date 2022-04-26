@@ -37,19 +37,19 @@ router.get('/kantin', (req, res, next) => {
 });
 
 // // nampilin semua pengguna
-router.get('/api/users', verifyToken,(req, res, next) => {
+router.get('/api/users', verifyToken, (req, res, next) => {
     try {
-        if(req.role == 'administrator') {
-            client.query('SELECT * FROM mk_pengguna', (error, result)=>{
+        if (req.role == 'administrator') {
+            client.query('SELECT * FROM mk_pengguna', (error, result) => {
                 res.send(result.rows)
             });
         } else {
-            res.send({message: "You dont have permisiion"});
+            res.send({ message: "You dont have permisiion" });
         }
-    } catch(error) {
+    } catch (error) {
         res.send(error).status(404);
     }
-    
+
     // res.json({test: "Selamat Datang!"});
 });
 
@@ -93,87 +93,87 @@ router.get('/api/users', verifyToken,(req, res, next) => {
 // // tambah user
 router.post('/api/register', (req, res, next) => {
     try {
-        if(!req.body.username || req.body.username.length < 3){
+        if (!req.body.username || req.body.username.length < 3) {
             res.render("/app/html/res/res.ejs", {
                 message: "Input username must be valid or > 3 character!",
                 problem: "Error"
-            }); 
-            res.status(5); 
+            });
+            res.status(5);
         };
-        if(!req.body.password || req.body.password.length < 3){
+        if (!req.body.password || req.body.password.length < 3) {
             res.render("/app/html/res/res.ejs", {
                 message: "Input password must be valid or > 3 character!",
                 problem: "Error"
-            }); 
-            res.status(5); 
+            });
+            res.status(5);
         };
-        if(!req.body.NRP || req.body.NRP.length < 3){
+        if (!req.body.NRP || req.body.NRP.length < 3) {
             res.render("/app/html/res/res.ejs", {
                 message: "Input NRP must be valid or > 3 character!",
                 problem: "Error"
-            }); 
-            res.status(5); 
+            });
+            res.status(5);
         };
-    
+
         client.query('SELECT EXISTS (SELECT username FROM MK_pengguna WHERE username = $1)', [req.body.username], (error1, result1) => {
-            if(result1.rows[0]["exists"] === true) {
+            if (result1.rows[0]["exists"] === true) {
                 res.render("/app/html/res/res.ejs", {
                     message: "Username exist",
                     problem: "Error"
-                }); 
-                res.status(5);        
+                });
+                res.status(5);
             }
             else {
                 client.query('SELECT EXISTS (SELECT NRP FROM MK_pengguna WHERE NRP = $1)', [req.body.NRP], (error2, result2) => {
-                    if(result2.rows[0]["exists"] === true) {
+                    if (result2.rows[0]["exists"] === true) {
                         res.render("/app/html/res/res.ejs", {
                             message: "NRP exist",
                             problem: "Error"
-                        }); 
-                        res.status(5); 
+                        });
+                        res.status(5);
                     }
                     else {
-                        client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result)=>{
+                        client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result) => {
                             res.render("/app/html/res/res.ejs", {
                                 message: "Register Success! Welcome, " + req.body.username,
                                 problem: "Success"
-                            }); 
-                            res.status(4); 
+                            });
+                            res.status(4);
                         });
                     }
                 });
             }
         });
-    } catch(error) {
+    } catch (error) {
         res.status(404).send(error);
     }
 
 
 });
 
-router.post('/api/login', async(req, res, next) => {
+router.post('/api/login', async (req, res, next) => {
     try {
-        if(!req.body.username || req.body.username.length < 3){
+        if (!req.body.username || req.body.username.length < 3) {
             res.render("/app/html/res/res.ejs", {
                 message: "Input username must be valid or > 3 character!",
                 problem: "Error"
             });
-            res.status(5);  
+            res.status(5);
         };
-        if(!req.body.password || req.body.password.length < 3){
+        if (!req.body.password || req.body.password.length < 3) {
             res.render("/app/html/res/res.ejs", {
                 message: "Input password must be valid or > 3 character!",
                 problem: "Error"
-            }); 
-            res.status(5); 
+            });
+            res.status(5);
         };
-    
-        client.query('SELECT EXISTS (SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2)', [req.body.username, req.body.password], (error, result) =>{
-            if(result.rows[0]["exists"] === true) {
+
+        client.query('SELECT EXISTS (SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2)', [req.body.username, req.body.password], (error, result) => {
+            if (result.rows[0]["exists"] === true) {
                 var token = '';
                 client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result1) => {
-                    token = jwt.sign({username: req.body.username, role: result1.rows[0]["role"], NRP: result1.rows[0]["NRP"]}, config.secret, {expiresIn: 86400});
-                    res.cookie('token', token, {maxAge: 86400, httpOnly:true});
+                    token = jwt.sign({ username: req.body.username, role: result1.rows[0]["role"], NRP: result1.rows[0]["NRP"] }, config.secret, { expiresIn: 86400 });
+                    res.cookie('token', token, { maxAge: 86400, httpOnly: true });
                     res.render("/app/html/res/res.ejs", {
                         message: "Login Success",
                         problem: "Success",
@@ -186,10 +186,10 @@ router.post('/api/login', async(req, res, next) => {
                     message: "Ne record found, please register yourself.",
                     problem: "Error"
                 });
-                res.status(5); 
+                res.status(5);
             }
         });
-    } catch(error) {
+    } catch (error) {
         res.status(404).send(error);
     }
     client.end;
@@ -197,7 +197,7 @@ router.post('/api/login', async(req, res, next) => {
 
 router.get('/api/kantin/:kode', (req, res, next) => {
     try {
-        client.query('SELECT * FROM mk_kantin WHERE kode = $1;',[req.params.kode], (error, result)=>{
+        client.query('SELECT * FROM mk_kantin WHERE kode = $1;', [req.params.kode], (error, result) => {
             res.render("/app/html/kantinView.ejs", {
                 nama: result.rows[0]["nama"],
                 lokasi: result.rows[0]["lokasi"],
@@ -205,10 +205,10 @@ router.get('/api/kantin/:kode', (req, res, next) => {
             });
             res.status(4)
         });
-    } catch(error) {
+    } catch (error) {
         res.send(error).status(404)
     }
-    
+
     client.end;
 });
 
@@ -248,33 +248,50 @@ router.get('/api/kantin/:kode', (req, res, next) => {
 
 // }); 
 
-// router.post('/api/pay', verifyToken,(req, res, next) => {
-//     client.query('SELECT * FROM MK_pengguna WHERE NRP= ?', req.NRP, (error1, result1) => {
-//         // console.log(result1[0].NRP);
-//         // console.log(req.body.NRP);
-//         if(error1) throw error1;
-//         if(req.body.jumlah > result1[0].cash) res.status(400).send('You dont have that much money')
-//         else {
-//             client.query('UPDATE MK_pengguna SET cash = cash - ? WHERE NRP = ?', [req.body.jumlah, req.NRP], (error, result)=>{
-//                 if(error) throw error;
-//             });
+router.post('/api/pay', verifyToken, (req, res, next) => {
+    try {
+        if (req.body.emoney == 'metamoney') {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ 
+                message: req.body.emoney 
+            }, null, 3));
+        } else if (req.body.emoney == 'other') {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ 
+                message: req.body.emoney 
+            }, null, 3));
+        } else {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ 
+                message: req.body.emoney 
+            }, null, 3));
+        }
+        // client.query('SELECT * FROM MK_pengguna WHERE NRP= $1', [req.NRP], (error1, result1) => {
+        //     if (req.body.jumlah > result1.rows[0].cash) res.status(400).send('You dont have that much money')
+        //     else {
+        //         client.query('UPDATE MK_pengguna SET cash = cash - ? WHERE NRP = ?', [req.body.jumlah, req.NRP], (error, result) => {
+        //         });
 
-//             client.query('UPDATE mk_kantin SET cash = cash + ? WHERE paycode = ?', [req.body.jumlah, req.body.paycode], (error, result)=>{
-//                 if(error) throw error;
-//                 if(result.affectedRows == 0) {
-//                     res.status(400).send(`Failed, NRP ${req.body.paycode} doesnt exist`)
-//                 } else {
-//                     res.send(`Bayar Rp.${req.body.jumlah} ke kantin ${req.body.paycode} berhasil`);   
-//                 }
-//             });
-//             var today_date = moment(new Date()).format('YYYY-MM-DD');
-//             var today_time = moment(new Date()).format('HH:mm:ss');
-//             client.query('INSERT INTO mk_histori_bayar VALUES (NULL, ?, ?, ?, ?, ?)', [req.NRP, req.body.paycode, req.body.jumlah, today_date, today_time], (error4, result4) => {
-//                 if(error4) throw error4;
-//             });
-//         }
-//     }); 
-// }); 
+        //         client.query('UPDATE mk_kantin SET cash = cash + ? WHERE paycode = ?', [req.body.jumlah, req.body.paycode], (error, result) => {
+        //             if (error) throw error;
+        //             if (result.affectedRows == 0) {
+        //                 res.status(400).send(`Failed, NRP ${req.body.paycode} doesnt exist`)
+        //             } else {
+        //                 res.send(`Bayar Rp.${req.body.jumlah} ke kantin ${req.body.paycode} berhasil`);
+        //             }
+        //         });
+        //         var today_date = moment(new Date()).format('YYYY-MM-DD');
+        //         var today_time = moment(new Date()).format('HH:mm:ss');
+        //         client.query('INSERT INTO mk_histori_bayar VALUES (NULL, ?, ?, ?, ?, ?)', [req.NRP, req.body.paycode, req.body.jumlah, today_date, today_time], (error4, result4) => {
+        //             if (error4) throw error4;
+        //         });
+        //     }
+        // });
+    } catch (error) {
+        res.send(error).status(404)
+    }
+
+});
 
 // router.post('/api/topup', verifyToken,(req, res, next) => {
 //     // console.log(moment(new Date()).format('YYYY-MM-DD'))
@@ -341,11 +358,11 @@ router.get('/api/kantin/:kode', (req, res, next) => {
 // });
 
 router.get('/api/userss', (req, res, next) => {
-    client.query('SELECT * FROM MK_pengguna;', (error, result)=>{
+    client.query('SELECT * FROM MK_pengguna;', (error, result) => {
         try {
-            if(error) throw error;
-        res.send(result.rows)
-        } catch(error) {
+            if (error) throw error;
+            res.send(result.rows)
+        } catch (error) {
             res.status(404).send('Failed')
         }
     });
@@ -354,25 +371,25 @@ router.get('/api/userss', (req, res, next) => {
 
 router.post('/api/loginn', (req, res, next) => {
     try {
-        client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result)=>{
+        client.query('SELECT * FROM MK_pengguna WHERE username = $1;', [req.body.username], (error, result) => {
             res.send(result.rows)
         });
-    } catch(error) {
+    } catch (error) {
         res.send(error).status(404)
     }
-    
+
     client.end;
 });
 
 router.get('/api/kantin', (req, res, next) => {
     try {
-        client.query('SELECT * FROM mk_kantin;', (error, result)=>{
+        client.query('SELECT * FROM mk_kantin;', (error, result) => {
             res.send(result.rows)
         });
-    } catch(error) {
+    } catch (error) {
         res.send(error).status(404)
     }
-    
+
     client.end;
 });
 
