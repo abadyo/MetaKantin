@@ -20,7 +20,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
+            <!-- <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
@@ -30,7 +30,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Pricing</a>
                 </li>
-            </ul>
+            </ul> -->
 
             <ul class="navbar-nav ml-auto">
                 <div class="dropdown-divider"></div>
@@ -90,7 +90,7 @@
                             '<h5 class="card-title">' + data[i].nama + '</h5>' +
                             '<h6 class="card-subtitle mb-2 text-muted">' + data[i].kode + '</h6>' +
                             '<p class="card-text">' + data[i].lokasi +'</p>' +
-                            '<a href="#" class="btn btn-primary">Go somewhere</a>' +
+                            '<a href="' + data[i].kode + '"' +  'class="btn btn-primary">Go somewhere</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>'

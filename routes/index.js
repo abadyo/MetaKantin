@@ -195,6 +195,19 @@ router.post('/api/login', async(req, res, next) => {
     client.end;
 });
 
+router.get('/api/kantin/:kode', (req, res, next) => {
+    try {
+        client.query('SELECT * FROM mk_kantin WHERE kode = $1;',[req.params.kode], (error, result)=>{
+            res.send(result.rows)
+        });
+    } catch(error) {
+        res.send(error).status(404)
+    }
+    
+    client.end;
+});
+
+
 // router.post('/api/transfer', verifyToken,(req, res, next) => {
 //     client.query('SELECT * FROM MK_pengguna WHERE NRP= ?', req.NRP, (error1, result1) => {
 //         // console.log(result1[0].NRP);
