@@ -199,9 +199,9 @@ router.get('/api/kantin/:kode', (req, res, next) => {
     try {
         client.query('SELECT * FROM mk_kantin WHERE kode = $1;',[req.params.kode], (error, result)=>{
             res.render("/app/html/kantinView.ejs", {
-                nama: res.rows[0]["nama"],
-                lokasi: res.rows[0]["lokasi"],
-                kode: res.rows[0]["kode"],
+                nama: result.rows[0]["nama"],
+                lokasi: result.rows[0]["lokasi"],
+                kode: result.rows[0]["kode"],
             });
             res.status(4)
         });
