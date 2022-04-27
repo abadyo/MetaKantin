@@ -269,7 +269,7 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                                 client.query(' UPDATE mk_kantin SET cash = cash + $1 WHERE kode = $2', [req.body.harga, req.body.kode]);
                                 var today_date = moment(new Date()).format('YYYY-MM-DD');
                                 var today_time = moment(new Date()).format('HH:mm:ss');
-                                client.query(' INSERT INTO mk_histori_bayar(NRP, kode, cash, metode, tanggal, waktu) VALUES ($1, $2, $3, $4, $5, $6)', [req.NRP, req.body.kode, req.body.harga, req.body.emoney, today_date, today_time]);
+                                client.query(' INSERT INTO mk_histori_bayar(nrp, kode, cash, metode, tanggal, waktu) VALUES ($1, $2, $3, $4, $5, $6)', [req.NRP, req.body.kode, req.body.harga, req.body.emoney, today_date, today_time]);
                                 res.setHeader('Content-Type', 'application/json');
                                 res.end(JSON.stringify({
                                     message: "Transaksi berhasil"
