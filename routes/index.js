@@ -254,7 +254,7 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
     try {
         if (req.body.emoney == 'metamoney') {
             client.query('SELECT username, cash FROM mk_pengguna WHERE username = $1 AND password = $2', [req.username, req.body.password], (error1, result1) => {
-                if(result1.rowCount > 0) {
+                if (result1.rowCount > 0) {
                     // res.setHeader('Content-Type', 'application/json');
                     // res.end(JSON.stringify(result1.rows[0]["cash"], null, 3)); 
                     // res.setHeader('Content-Type', 'application/json');
@@ -263,66 +263,48 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                     //     a: result1.rows[0]["cash"],
                     //     b: result1.rows[0]["cash"] > req.body.harga
                     // }, null, 3));
-                    if(result1.rows[0]["cash"] > req.body.harga) {
+                    if (result1.rows[0]["cash"] > req.body.harga) {
                         client.query('UPDATE mk_pengguna SET cash = cash - $1 WHERE username = $2', [req.body.harga, req.username], (error2, result2) => {
-                            if(result2.rowCount != 0) {
+                            if (result2.rowCount != 0) {
                                 client.query(' UPDATE mk_kantin SET cash = cash + $1 WHERE kode = $2', [req.body.harga, req.body.kode]);
+                                var today_date = moment(new Date()).format('YYYY-MM-DD');
+                                var today_time = moment(new Date()).format('HH:mm:ss');
+                                client.query(' INSERT INTO mk_histori_bayar(NRP, kode, cash, metode, tanggal, waktu) VALUES ($1, $2, $3, $4, $5, $6)', [req.NRP, req.body.kode, req.body.harga, req.body.emoney, today_date, today_time]);
                                 res.setHeader('Content-Type', 'application/json');
-                                res.end(JSON.stringify({ 
-                                    message: "Transaksi berhasil" 
-                                    }, null, 3)); 
+                                res.end(JSON.stringify({
+                                    message: "Transaksi berhasil"
+                                }, null, 3));
                             } else {
                                 res.setHeader('Content-Type', 'application/json');
-                                res.end(JSON.stringify({ 
-                                    message: "Transaksi gagal" 
-                                    }, null, 3)); 
+                                res.end(JSON.stringify({
+                                    message: "Transaksi gagal"
+                                }, null, 3));
                             }
                         });
                     } else {
                         res.setHeader('Content-Type', 'application/json');
-                        res.end(JSON.stringify({ 
-                            message: "Uang kamu tidak cukup" 
-                            }, null, 3)); 
+                        res.end(JSON.stringify({
+                            message: "Uang kamu tidak cukup"
+                        }, null, 3));
                     }
                 } else {
                     res.setHeader('Content-Type', 'application/json');
-                    res.end(JSON.stringify({ 
-                        message: "Wrong password" 
-                    }, null, 3));   
+                    res.end(JSON.stringify({
+                        message: "Wrong password"
+                    }, null, 3));
                 }
             });
         } else if (req.body.emoney == 'other') {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ 
+            res.end(JSON.stringify({
                 message: "two"
             }, null, 3));
         } else {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ 
+            res.end(JSON.stringify({
                 message: "hello"
             }, null, 3));
         }
-        // client.query('SELECT * FROM MK_pengguna WHERE NRP= $1', [req.NRP], (error1, result1) => {
-        //     if (req.body.jumlah > result1.rows[0].cash) res.status(400).send('You dont have that much money')
-        //     else {
-        //         client.query('UPDATE MK_pengguna SET cash = cash - ? WHERE NRP = ?', [req.body.jumlah, req.NRP], (error, result) => {
-        //         });
-
-        //         client.query('UPDATE mk_kantin SET cash = cash + ? WHERE paycode = ?', [req.body.jumlah, req.body.paycode], (error, result) => {
-        //             if (error) throw error;
-        //             if (result.affectedRows == 0) {
-        //                 res.status(400).send(`Failed, NRP ${req.body.paycode} doesnt exist`)
-        //             } else {
-        //                 res.send(`Bayar Rp.${req.body.jumlah} ke kantin ${req.body.paycode} berhasil`);
-        //             }
-        //         });
-        //         var today_date = moment(new Date()).format('YYYY-MM-DD');
-        //         var today_time = moment(new Date()).format('HH:mm:ss');
-        //         client.query('INSERT INTO mk_histori_bayar VALUES (NULL, ?, ?, ?, ?, ?)', [req.NRP, req.body.paycode, req.body.jumlah, today_date, today_time], (error4, result4) => {
-        //             if (error4) throw error4;
-        //         });
-        //     }
-        // });
     } catch (error) {
         res.send(error).status(404)
     }
