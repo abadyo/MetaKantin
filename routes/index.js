@@ -109,7 +109,7 @@ router.post('/api/register', (req, res, next) => {
             });
             res.status(5);
         };
-        if (!req.body.NRP || req.body.NRP.length < 3) {
+        if (!req.body.nrp || req.body.nrp.length < 3) {
             res.render("/app/html/res/res.ejs", {
                 message: "Input NRP must be valid or > 3 character!",
                 problem: "Error"
@@ -126,7 +126,7 @@ router.post('/api/register', (req, res, next) => {
                 res.status(5);
             }
             else {
-                client.query('SELECT EXISTS (SELECT NRP FROM MK_pengguna WHERE NRP = $1)', [req.body.NRP], (error2, result2) => {
+                client.query('SELECT EXISTS (SELECT nrp FROM MK_pengguna WHERE nrp = $1)', [req.body.nrp], (error2, result2) => {
                     if (result2.rows[0]["exists"] === true) {
                         res.render("/app/html/res/res.ejs", {
                             message: "NRP exist",
@@ -135,7 +135,7 @@ router.post('/api/register', (req, res, next) => {
                         res.status(5);
                     }
                     else {
-                        client.query(`INSERT INTO MK_pengguna(username, password, NRP, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.NRP, req.body.email], (error, result) => {
+                        client.query(`INSERT INTO MK_pengguna(username, password, nrp, email, cash, role) VALUES ($1, $2, $3, $4, 0, 'user')`, [req.body.username, req.body.password, req.body.nrp, req.body.email], (error, result) => {
                             res.render("/app/html/res/res.ejs", {
                                 message: "Register Success! Welcome, " + req.body.username,
                                 problem: "Success"
@@ -174,7 +174,7 @@ router.post('/api/login', async (req, res, next) => {
             if (result.rows[0]["exists"] === true) {
                 var token = '';
                 client.query('SELECT * FROM mk_pengguna WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result1) => {
-                    token = jwt.sign({ username: req.body.username, role: result1.rows[0]["role"], NRP: result1.rows[0]["NRP"] }, config.secret, { expiresIn: 86400 });
+                    token = jwt.sign({ username: req.body.username, role: result1.rows[0]["role"], nrp: result1.rows[0]["nrp"] }, config.secret, { expiresIn: 86400 });
                     res.cookie('token', token, { maxAge: 86400, httpOnly: true });
                     res.render("/app/html/res/res.ejs", {
                         message: "Login Success",
@@ -269,7 +269,7 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                                 client.query(' UPDATE mk_kantin SET cash = cash + $1 WHERE kode = $2', [req.body.harga, req.body.kode]);
                                 var today_date = moment(new Date()).format('YYYY-MM-DD');
                                 var today_time = moment(new Date()).format('HH:mm:ss');
-                                client.query(' INSERT INTO mk_histori_bayar(nrp, kode, cash, metode, tanggal, waktu) VALUES ($1, $2, $3, $4, $5, $6)', [req.NRP, req.body.kode, req.body.harga, req.body.emoney, today_date, today_time]);
+                                client.query(' INSERT INTO mk_histori_bayar(nrp, kode, cash, metode, tanggal, waktu) VALUES ($1, $2, $3, $4, $5, $6)', [req.nrp, req.body.kode, req.body.harga, req.body.emoney, today_date, today_time]);
                                 res.setHeader('Content-Type', 'application/json');
                                 res.end(JSON.stringify({
                                     message: "Transaksi berhasil"

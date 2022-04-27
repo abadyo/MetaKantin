@@ -15,7 +15,7 @@ function verifyToken(req, res, next) {
       req.username = decoded.username;
       req.role = decoded.role;
       // req.unique_id = decoded.unique_id;
-      req.NRP = decoded.NRP;
+      req.nrp = decoded.nrp;
       next();
     });
   }
