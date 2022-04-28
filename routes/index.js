@@ -415,7 +415,7 @@ router.get('/api/kantin', (req, res, next) => {
 
 router.get('/tes', (req, res, next) => {
     const options = {
-        hostname: 'https://wizard-world-api.herokuapp.com',
+        hostname: 'wizard-world-api.herokuapp.com',
         path: '/Wizards',
         method: 'GET',
         port: 443, 
