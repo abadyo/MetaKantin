@@ -430,8 +430,6 @@ router.get('/tes', (req, res, next) => {
         console.error(e);
     });
     reqGet.end();
-
-    client.end;
 });
 
 // function cobaAPI() {
