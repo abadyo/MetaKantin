@@ -15,7 +15,8 @@ const { exit } = require('process');
 var jsonParser = bodyParser.json()
 
 const url = require('url');
-const axios = require('axios')
+const axios = require('axios');
+const https = require('https');
 
 var moment = require('moment');
 // const { NULL } = require('mysql/lib/protocol/constants/types');
@@ -423,11 +424,22 @@ router.get('/tes', (req, res, next) => {
 });
 
 function cobaAPI() {
-    axios.get('https://wizard-world-api.herokuapp.com/Wizards').then(ress => {
-        return ress
-    }).catch(error => {
-        console.log(error)
-    })
+    // axios.get('https://example.com/todos').then(ress => {
+    //     return ress
+    // }).catch(error => {
+    //     console.log(error)
+    // })
+    const options = {
+        hostname: 'https://wizard-world-api.herokuapp.com/Wizards',
+        path: '/',
+        method: 'GET',
+    };
+    const req = https.request(options, res => {
+        return res
+    });
+    req.on('error', error => {
+        console.error(error);
+    });
 };
 
 module.exports = router; 
