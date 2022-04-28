@@ -418,7 +418,7 @@ router.get('/tes', (req, res, next) => {
         .get('https://wizard-world-api.herokuapp.com/Wizards')
         .then(ress => {
             console.log(`statusCode: ${ress.status}`);
-            console.log(ress);
+            console.log(ress.data);
         })
         .catch(error => {
             console.error(error);
