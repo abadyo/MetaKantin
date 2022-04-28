@@ -418,9 +418,7 @@ router.get('/tes', (req, res, next) => {
         hostname: 'https://wizard-world-api.herokuapp.com',
         path: '/Wizards',
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        port: 443, 
     };
     var reqGet = https.request(options, function (res) {
         res.on('data', function (d) {
@@ -428,10 +426,11 @@ router.get('/tes', (req, res, next) => {
         });
 
     });
-    reqGet.end();
     reqGet.on('error', function(e) {
         console.error(e);
     });
+    reqGet.end();
+
     client.end;
 });
 
