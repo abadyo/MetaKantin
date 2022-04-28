@@ -420,8 +420,8 @@ router.get('/tes', (req, res, next) => {
         method: 'GET',
         port: 443, 
     };
-    var reqGet = https.request(options, function (res) {
-        res.on('data', function (d) {
+    var reqGet = https.request(options, function (ress) {
+        ress.on('data', function (d) {
             res.send(d)
         });
 
