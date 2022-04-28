@@ -15,6 +15,7 @@ const { exit } = require('process');
 var jsonParser = bodyParser.json()
 
 const url = require('url');
+const axios = require('axios')
 
 var moment = require('moment');
 // const { NULL } = require('mysql/lib/protocol/constants/types');
@@ -404,6 +405,26 @@ router.get('/api/kantin', (req, res, next) => {
         client.query('SELECT * FROM mk_kantin;', (error, result) => {
             res.send(result.rows)
         });
+    } catch (error) {
+        res.send(error).status(404)
+    }
+
+    client.end;
+});
+
+router.get('/tes', (req, res, next) => {
+    try {
+        axios
+            .post('https://whatever.com/todos', {
+                todo: 'Tes'
+            })
+            .then(res => {
+                console.log(`statusCode: ${res.status}`)
+                console.log(res)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     } catch (error) {
         res.send(error).status(404)
     }
