@@ -428,23 +428,23 @@ router.get('/tes', (req, res, next) => {
     client.end;
 });
 
-function cobaAPI() {
-    // axios.get('https://example.com/todos').then(ress => {
-    //     return ress
-    // }).catch(error => {
-    //     console.log(error)
-    // })
-    const options = {
-        hostname: 'https://wizard-world-api.herokuapp.com/Wizards',
-        path: '/',
-        method: 'GET',
-    };
-    const req = https.request(options, res => {
-        return res
-    });
-    req.on('error', error => {
-        console.error(error);
-    });
-};
+// function cobaAPI() {
+//     // axios.get('https://example.com/todos').then(ress => {
+//     //     return ress
+//     // }).catch(error => {
+//     //     console.log(error)
+//     // })
+//     const options = {
+//         hostname: 'https://wizard-world-api.herokuapp.com/Wizards',
+//         path: '/',
+//         method: 'GET',
+//     };
+//     const req = https.request(options, res => {
+//         return res
+//     });
+//     req.on('error', error => {
+//         console.error(error);
+//     });
+// };
 
 module.exports = router; 
