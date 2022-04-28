@@ -423,16 +423,11 @@ router.get('/tes', (req, res, next) => {
 });
 
 function cobaAPI() {
-    axios
-        .post('https://met4kantin.herokuapp.com/api/loginn', {
-            username: 'admin'
-        })
-        .then(ress => {
-            return ress
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    axios.get('https://wizard-world-api.herokuapp.com/Wizards').then(ress => {
+        return ress
+    }).catch(error => {
+        console.log(error)
+    })
 };
 
 module.exports = router; 
