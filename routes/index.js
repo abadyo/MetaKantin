@@ -415,17 +415,16 @@ router.get('/api/kantin', (req, res, next) => {
 router.get('/tes', (req, res, next) => {
     try {
         axios
-            .post('https://whatever.com/todos', {
-                todo: 'Tes'
+            .post('https://met4kantin.herokuapp.com/api/loginn', {
+                username: 'admin'
             })
-            .then(res => {
-                console.log(`statusCode: ${res.status}`)
-                console.log(res)
+            .then(ress => {
+                res.send(ress)
             })
             .catch(error => {
                 console.log(error)
             })
-    } catch (error) {
+    } catch (error) {a
         res.send(error).status(404)
     }
 
