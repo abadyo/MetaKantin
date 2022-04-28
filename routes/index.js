@@ -414,22 +414,15 @@ router.get('/api/kantin', (req, res, next) => {
 });
 
 router.get('/tes', (req, res, next) => {
-    const options = {
-        hostname: 'wizard-world-api.herokuapp.com',
-        path: '/Wizards',
-        method: 'GET',
-        port: 443, 
-    };
-    var reqGet = https.request(options, function (ress) {
-        ress.on('data', function (d) {
-            console.log(ress)
+    axios
+        .get('https://wizard-world-api.herokuapp.com/Wizards')
+        .then(ress => {
+            console.log(`statusCode: ${ress.status}`);
+            console.log(ress);
+        })
+        .catch(error => {
+            console.error(error);
         });
-
-    });
-    reqGet.on('error', function(e) {
-        console.error(e);
-    });
-    reqGet.end();
 });
 
 // function cobaAPI() {
