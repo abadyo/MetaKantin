@@ -414,14 +414,24 @@ router.get('/api/kantin', (req, res, next) => {
 });
 
 router.get('/tes', (req, res, next) => {
-    axios.get('https://wizard-world-api.herokuapp.com/Wizards')
-    .then((result) => {
-        res.send(result)
-    }).catch((err) => {
-        res.send(err)
+    const options = {
+        hostname: 'https://wizard-world-api.herokuapp.com',
+        path: '/Wizards',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    };
+    var reqGet = https.request(options, function (res) {
+        res.on('data', function (d) {
+            res.send(d)
+        });
+
     });
-
-
+    reqGet.end();
+    reqGet.on('error', function(e) {
+        console.error(e);
+    });
     client.end;
 });
 
