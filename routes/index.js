@@ -416,7 +416,7 @@ router.get('/api/kantin', (req, res, next) => {
 router.get('/tes', (req, res, next) => {
     axios.get('https://wizard-world-api.herokuapp.com/Wizards')
     .then((result) => {
-        res.send(JSON.stringify(result))
+        res.send(result)
     }).catch((err) => {
         res.send(err)
     });
