@@ -414,21 +414,25 @@ router.get('/api/kantin', (req, res, next) => {
 
 router.get('/tes', (req, res, next) => {
     try {
-        axios
-            .post('https://met4kantin.herokuapp.com/api/loginn', {
-                username: 'admin'
-            })
-            .then(ress => {
-                res.send(ress)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    } catch (error) {a
+        res.send(cobaAPI())
+    } catch (error) {
         res.send(error).status(404)
     }
 
     client.end;
 });
+
+function cobaAPI() {
+    axios
+        .post('https://met4kantin.herokuapp.com/api/loginn', {
+            username: 'admin'
+        })
+        .then(ress => {
+            return ress
+        })
+        .catch(error => {
+            console.log(error)
+        })
+};
 
 module.exports = router; 
