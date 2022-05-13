@@ -199,7 +199,7 @@ router.post('/api/login', async (req, res, next) => {
     client.end;
 });
 
-router.get('/api/kantin/:kode', (req, res, next) => {
+router.get('/kantin/:kode', (req, res, next) => {
     try {
         client.query('SELECT * FROM mk_kantin WHERE kode = $1;', [req.params.kode], (error, result) => {
             res.render("/app/html/kantinView.ejs", {
@@ -216,6 +216,17 @@ router.get('/api/kantin/:kode', (req, res, next) => {
     client.end;
 });
 
+router.get('api/Meta', (req, res, next) => {
+    try {
+        client.query('SELECT username, nrp, cash FROM mk_pengguna WHERE nrp = $1;', [req.nrp], (error, result) => {
+            res.send(result.rows);
+        });
+    } catch (error) {
+        res.send(error).status(404)
+    }
+
+    client.end;
+});
 
 // router.post('/api/transfer', verifyToken,(req, res, next) => {
 //     client.query('SELECT * FROM MK_pengguna WHERE NRP= ?', req.NRP, (error1, result1) => {
