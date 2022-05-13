@@ -216,7 +216,7 @@ router.get('/kantin/:kode', (req, res, next) => {
     client.end;
 });
 
-router.get('/api/Meta', (req, res, next) => {
+router.get('/api/Meta', verifyToken, (req, res, next) => {
     try {
         client.query('SELECT username, nrp, cash FROM mk_pengguna WHERE nrp = $1;', [req.nrp], (error, result) => {
             res.send(result.rows);
