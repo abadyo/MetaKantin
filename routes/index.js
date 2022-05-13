@@ -199,7 +199,7 @@ router.post('/api/login', async (req, res, next) => {
     client.end;
 });
 
-router.get('/kantin/:kode', (req, res, next) => {
+router.get('/kantin/:kode', verifyToken, (req, res, next) => {
     try {
         client.query('SELECT * FROM mk_kantin WHERE kode = $1;', [req.params.kode], (error, result) => {
             res.render("/app/html/kantinView.ejs", {
