@@ -216,9 +216,21 @@ router.get('/kantin/:kode', verifyToken, (req, res, next) => {
     client.end;
 });
 
-router.get('/api/Meta', verifyToken, (req, res, next) => {
+router.post('/api/Meta', verifyToken, (req, res, next) => {
     try {
-        client.query('SELECT username, nrp, cash FROM mk_pengguna WHERE nrp = $1;', [req.nrp], (error, result) => {
+        client.query('SELECT username, nrp, cash FROM mk_pengguna WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result) => {
+            res.send(result.rows);
+        });
+    } catch (error) {
+        res.send(error).status(404)
+    }
+
+    client.end;
+});
+
+router.post('/api/transaction', verifyToken, (req, res, next) => {
+    try {
+        client.query('SELECT kode, cash, metode, tanggal, waktu, FROM mk_histori_bayar WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result) => {
             res.send(result.rows);
         });
     } catch (error) {
