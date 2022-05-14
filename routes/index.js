@@ -319,10 +319,21 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
                     }, null, 3));
                 }
             });
-        } else if (req.body.emoney == 'other') {
+        } else if (req.body.emoney == 'harpay') {
+            // axios
+            //     .post('https://harpay-api.herokuapp.com/auth/login', {
+            //         username: req.body.username,
+            //         password: req.bosy.password
+            //     })
+            //     .then(ress => {
+            //         res.send(ress.data)
+            //     })
+            //     .catch(error => {
+            //         console.error(error);
+            //     });
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({
-                message: "two"
+                message: "hello"
             }, null, 3));
         } else {
             res.setHeader('Content-Type', 'application/json');
