@@ -216,7 +216,7 @@ router.get('/kantin/:kode', verifyToken, (req, res, next) => {
     client.end;
 });
 
-router.post('/api/Meta', verifyToken, (req, res, next) => {
+router.post('/api/Meta', (req, res, next) => {
     try {
         client.query('SELECT username, nrp, cash FROM mk_pengguna WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result) => {
             res.send(result.rows);
@@ -228,7 +228,7 @@ router.post('/api/Meta', verifyToken, (req, res, next) => {
     client.end;
 });
 
-router.post('/api/transaction', verifyToken, (req, res, next) => {
+router.post('/api/transaction', (req, res, next) => {
     try {
         client.query('SELECT kode, cash, metode, tanggal, waktu, FROM mk_histori_bayar WHERE username = $1 AND password = $2;', [req.body.username, req.body.password], (error, result) => {
             res.send(result.rows);
