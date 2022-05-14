@@ -323,7 +323,7 @@ router.post('/api/pay', verifyToken, (req, res, next) => {
             axios
                 .post('https://harpay-api.herokuapp.com/auth/login', {
                     username: req.body.email,
-                    password: req.bosy.password
+                    password: req.body.password
                 })
                 .then(ress => {
                     res.send(ress.data)
