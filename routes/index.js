@@ -230,7 +230,7 @@ router.post('/api/Meta', (req, res, next) => {
 
 router.post('/api/transaction', (req, res, next) => {
     try {
-        client.query('SELECT kode, cash, metode, tanggal, waktu, FROM mk_histori_bayar WHERE nrp = (SELECT nrp FROM mk_pengguna WHERE username = $1 AND password = $2 LIMIT 1);', [req.body.username, req.body.password], (error, result) => {
+        client.query('SELECT kode, cash, metode, tanggal, waktu FROM mk_histori_bayar WHERE nrp = (SELECT nrp FROM mk_pengguna WHERE username = $1 AND password = $2 LIMIT 1);', [req.body.username, req.body.password], (error, result) => {
             res.send(result.rows);
         });
     } catch (error) {
