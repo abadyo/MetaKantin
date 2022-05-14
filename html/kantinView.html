@@ -75,57 +75,69 @@
     <div class="container text-center">
         <div class="row justify-content-center">
             <div class="col-md-auto my-3">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#MetaMoneyPay" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-primary btn-block btn-lg" type="button" data-toggle="collapse" data-target="#MetaMoneyPay" aria-expanded="false" aria-controls="collapseExample">
                     MetaMoney
                 </button>
             </div>
             <div class="col-md-auto my-3">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#HarpayPay" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-primary btn-block btn-lg" type="button" data-toggle="collapse" data-target="#HarpayPay" aria-expanded="false" aria-controls="collapseExample">
                     Harpay
                 </button>
             </div>
             <div class="col-md-auto my-3">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-primary btn-block btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     other
                 </button>
             </div>
             <div class="col-md-auto my-3">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn btn-primary btn-block btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
                     other2
                 </button>
             </div>
         </div>
-        <form action="/api/pay" method="post">
-            <!-- <div class="form-group">
-                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Metode bayar</label>
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="emoney">
-                    <option selected>Choose...</option>
-                    <option value="metamoney">metamoney</option>
-                    <option value="other">other</option>
-                    <option value="3">Three</option>
-                </select>
-            </div> -->
-            <div class="collapse" id="MetaMoneyPay">
-                <div class="form-group">
-                    <label for="emoney">Metode Bayar</label>
-                    <input type="text" readonly class="form-control" id="emoney" aria-describedby="emailHelp" name="emoney" value="metamoney">
-                </div>
-                <div class="form-group">
-                    <label for="kodetoko">Kode Kantin</label>
-                    <input type="text" readonly class="form-control" id="kodetoko" aria-describedby="emailHelp" name="kode" value=<%=kode %>>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nilai</label>
-                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Masukkan harga yang mau dibayar" name="harga">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
-                        name="password">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+        <form action="/api/pay" method="post" class="collapse" id="MetaMoneyPay">
+            <div class="my-5">
+                <h2 class="display-4">Meta Money</h2>
+                <p>Use our build-in E-money!</p>
             </div>
+            <div class="form-group">
+                <label for="emoney">Metode Bayar</label>
+                <input type="text" readonly class="form-control" id="emoney" aria-describedby="emailHelp" name="emoney" value="metamoney">
+            </div>
+            <div class="form-group">
+                <label for="kodetoko">Kode Kantin</label>
+                <input type="text" readonly class="form-control" id="kodetoko" aria-describedby="emailHelp" name="kode" value=<%=kode %>>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nilai</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="Masukkan harga yang mau dibayar" name="harga">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                    name="password">
+            </div>
+            <button type="submit" class="btn btn-primary my-3">Submit</button>
+            <hr class="my-3">
+        </form>
+
+        <form action="/api/pay" method="post" class="collapse" id="HarpayPay">
+            <div class="my-5">
+                <h2 class="display-4">Harpay</h2>
+                <p>Use other E-money from other group!</p>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                    name="password">
+            </div>
+            <button type="submit" class="btn btn-primary my-3">Submit</button>
+            <hr class="my-3">
         </form>
     </div>
 
