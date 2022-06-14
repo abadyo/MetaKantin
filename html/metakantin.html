@@ -25,19 +25,19 @@
                     <a class="nav-link" href="#">API</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Documentation</a>
+                    <a class="nav-link" href="https://github.com/abadyo/MetaKantin">Documentation</a>
                 </li>
             </ul>
 
-            <!-- <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto">
                 <div class="dropdown-divider"></div>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/my">Profile</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul> -->
+                </li> -->
+            </ul>
         </div>
     </nav>
 
@@ -252,7 +252,7 @@
                             '</div>' +
                             '</div>' +
                             '<div class="col col-lg-12 col-sm-12">' +
-                                '<a href="https://met4kantin.herokuapp.com/api/foods/buy/' + data.data[i].fuid + '"' + 'class="btn btn-outline-success btn-block">Beli</a>' +
+                                '<a href="https://met4kantin.herokuapp.com/kantin/' + data.data[i].fuid + '"' + 'class="btn btn-outline-success btn-block">Beli</a>' +
                             '</div>' +
                             '</div>' +
                             '</div>'
@@ -266,44 +266,45 @@
         });
     </script>
 
-<script>
-    $.ajax({
-        type: 'GET',
-        url: 'https://met4kantin.herokuapp.com/api/foods/minuman',
-        dataType: "json", //to parse string into JSON object,
-        success: function (data) {
-            console.log(data);
-            if (data) {
-                for (let i = 0; i < data.data.length; i++) {
-                    $('#minuman').append(
-                        '<div class="row mb-3">' + 
-                        '<div class="col col-sm-12 col-lg-4 text-center">' +
-                        '<img src="https://via.placeholder.com/150" alt="" class="img-fluid">' +
-                        '</div>' +
-                        '<div class="col col-sm-12 col-lg-4 my-sm-3 my-lg-0">' +
-                        '<h4 class="text-sm-center text-lg-left">' + data.data[i].nama + '</h4>' +
-                        '<p class="lead text-sm-center text-lg-left">' + data.data[i].deskripsi + '</p>' +
-                        '</div>' +
-                        '<div class="col col-sm-12 text-center col-lg-4">' +
-                        '<div class="row">' +
-                        '<div class="col col-lg-12 col-sm-12">' +
-                        '<p class="lead text-sm-center text-lg-right">' + data.data[i].harga + '</p>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="col col-lg-12 col-sm-12">' +
-                        '<a href="https://met4kantin.herokuapp.com/api/foods/buy/' + data.data[i].fuid + '"' + 'class="btn btn-outline-success btn-block">Beli</a>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>'
-                    );
+    <script>
+        $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/foods/minuman',
+            dataType: "json", //to parse string into JSON object,
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    for (let i = 0; i < data.data.length; i++) {
+                        $('#minuman').append(
+                            '<div class="row mb-3">' + 
+                            '<div class="col col-sm-12 col-lg-4 text-center">' +
+                            '<img src="https://via.placeholder.com/150" alt="" class="img-fluid">' +
+                            '</div>' +
+                            '<div class="col col-sm-12 col-lg-4 my-sm-3 my-lg-0">' +
+                            '<h4 class="text-sm-center text-lg-left">' + data.data[i].nama + '</h4>' +
+                            '<p class="lead text-sm-center text-lg-left">' + data.data[i].deskripsi + '</p>' +
+                            '</div>' +
+                            '<div class="col col-sm-12 text-center col-lg-4">' +
+                            '<div class="row">' +
+                            '<div class="col col-lg-12 col-sm-12">' +
+                            '<p class="lead text-sm-center text-lg-right">' + data.data[i].harga + '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="col col-lg-12 col-sm-12">' +
+                            '<a href="https://met4kantin.herokuapp.com/kantin/' + data.data[i].fuid + '"' + 'class="btn btn-outline-success btn-block">Beli</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    }
                 }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
             }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert('error: ' + textStatus + ': ' + errorThrown);
-        }
-    });
-</script>
+        });
+    </script>
+    
 </body>
 
 </html>

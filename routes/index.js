@@ -33,9 +33,33 @@ router.get('/login', (req, res, next) => {
   res.sendFile('/app/html/login.html');
 });
 
+router.get('/register', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.sendFile('/app/html/register.html');
+});
+
 router.get('/kantin', (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.sendFile('/app/html/metakantin.html');
+});
+
+router.get('/kantin/:fuid', (req, res, next) => {
+  const {fuid} = req.params;
+  url = 'https://met4kantin.herokuapp.com/api/foods/buy/' + fuid;
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  axios
+      .get(url)
+      .then((ress) => {
+        res.render('/app/views/foodView.ejs', ress.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+});
+
+router.get('/my', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.sendFile('/app/html/profile.html');
 });
 
 // nampilin semua pengguna
@@ -390,7 +414,7 @@ router.get('/api/history/topup', verifyToken, async (req, res, next) => {
 router.get('/api/foods', async (req, res, next) => {
   try {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    client.query('SELECT nama, kategori, harga, fuid FROM mk_makanan', (error, result) => {
+    client.query('SELECT nama, kategori, harga, deskripsi, fuid FROM mk_makanan', (error, result) => {
       if (result.rowCount > 0) {
         res.setHeader('Content-Type', 'application/json');
         res.status(200);
@@ -460,7 +484,7 @@ router.get('/api/foods/buy/:uid', (req, res, next) => {
   try {
     res.setHeader('Access-Control-Allow-Origin', '*');
     const {uid} = req.params;
-    client.query('SELECT nama, kategori, harga, fuid FROM mk_makanan WHERE fuid = $1', [uid], (errror, result) => {
+    client.query('SELECT nama, kategori, harga, deskripsi, fuid FROM mk_makanan WHERE fuid = $1', [uid], (errror, result) => {
       if (result.rowCount > 0) {
         res.setHeader('Content-Type', 'application/json');
         res.status(200);
@@ -513,9 +537,12 @@ router.put('/api/pay', verifyToken, (req, res, next) => {
       });
     };
     console.log(jumlah);
-    client.query('SELECT cash FROM mk_pengguna WHERE uid = $1', [req.uid], (error, result) => {
+    client.query('SELECT * FROM mk_pengguna WHERE uid = $1', [req.uid], (error, result) => {
+      // console.log(result.rows);
+      console.log(result.rows[0]['cash']);
+      console.log(result.rows[0]['cash'] < jumlah);
       if (result.rowCount > 0) {
-        if (result.rows[0]['cash'] < jumlah) {
+        if (parseInt(result.rows[0]['cash'], 10) < parseInt(jumlah, 10)) {
           res.status(400);
           return res.json({
             status: 400,
@@ -580,7 +607,7 @@ router.put('/api/pay', verifyToken, (req, res, next) => {
 router.post('/api/transaksi', verifyToken, async (req, res, next) => {
   try {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    const {fuid, wallet, harga} = req.body;
+    const {fuid, wallet, harga, pin} = req.body;
     client.query('SELECT * FROM mk_makanan WHERE fuid = $1', [fuid], (error, result) => {
       // console.log(result.rows);
       if (result.rowCount <= 0) {
@@ -598,6 +625,7 @@ router.post('/api/transaksi', verifyToken, async (req, res, next) => {
           const payload = {
             jumlah: harga,
           };
+          console.log(payload);
           axios
               .put('https://met4kantin.herokuapp.com/api/pay', payload, config)
               .then((ress) => {
@@ -619,8 +647,8 @@ router.post('/api/transaksi', verifyToken, async (req, res, next) => {
         } else if (wallet === 'otakupay') {
           axios
               .post('https://opay-v2.herokuapp.com/auth/login', {
-                username: 'abad',
-                password: 'abadabad',
+                username: req.body.usernameO,
+                password: req.body.passwordO,
               })
               .then((ress) => {
                 otakupayToken = ress.data.token;
@@ -669,8 +697,8 @@ router.post('/api/transaksi', verifyToken, async (req, res, next) => {
           // dapatin jwt
           axios
               .post('https://api-ecia.herokuapp.com/api/login', {
-                email: 'abad@mail.com',
-                pass: 'abadabad',
+                email: req.body.emailE,
+                pass: req.body.passE,
               })
               .then((ress) => {
                 // dapatin info
@@ -747,6 +775,49 @@ router.post('/api/transaksi', verifyToken, async (req, res, next) => {
                 // res.setHeader('Content-Type', 'application/json');
                 // res.status(400);
                 // return res.send(error.response.data);
+                console.log(error);
+              });
+        } else if (wallet === 'harpay') {
+          // login
+          const payloadLogin = {
+            email: req.body.emailH,
+            password: req.body.passwordH,
+          };
+          axios
+              .post('https://harpay-api.herokuapp.com/auth/login', payloadLogin)
+              .then((ress) => {
+                const harpayToken = ress.data.token;
+                const config = {
+                  headers: {Authorization: `Bearer ${harpayToken}`},
+                };
+                const payloadBayarHarpay = {
+                  jumlahBayar: harga,
+                  pin: parseInt(req.body.pin, 10),
+                };
+                console.log(payloadBayarHarpay);
+                axios
+                    .post('https://harpay-api.herokuapp.com/transaksi/bayar', payloadBayarHarpay, config)
+                    .then((riss) => {
+                      // return res.send(riss.data);
+                      // final
+                      const todayDate = moment(new Date()).format('YYYY-MM-DD');
+                      const todayTime = moment(new Date()).format('HH:mm:ss');
+                      // console.log(req.uid, req.name, jumlah, todayDate, todayTime);
+                      client.query(
+                          "INSERT INTO mk_histori_bayar(uid, name, jumlah, waktu, tanggal, metode) VALUES($1, $2, $3, $4, $5, 'harpay')",
+                          [req.uid, req.name, harga, todayTime, todayDate],
+                      );
+                      res.status(200);
+                      return res.json({
+                        status: 200,
+                        message: 'Pembayaran harpay berhasil',
+                      });
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+              })
+              .catch((error) => {
                 console.log(error);
               });
         } else {

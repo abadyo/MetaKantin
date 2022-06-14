@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+                shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <title>MetaKantin</title>
+    </head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">MetaKantin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-contr ols="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">API</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/abadyo/MetaKantin">Documentation</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:history.back()">Back</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="my-5 text-center">
+            <img src="https://i.postimg.cc/BvRN7M07/MK.png" alt="" style="max-width: 20%;" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="container text-center   ">
+        <h2 class="display-4" id="nama">Heloo, nama!</h2>
+    </div>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col col-sm-12 col-lg-6 text-sm-center text-lg-left px-lg-5">
+                <h3 class="display-5" id="uid">123</h3>
+            </div>
+            <div class="col col-sm-12 col-lg-6 text-sm-center text-lg-right px-lg-5">
+                <div class="row">
+                    <h3 class="display-5" id="cash">Money: 123</h3>
+                </div>
+                <div class="row">
+                    <h3 class="display-5" id="cashH">Money: 123</h3>
+                </div>
+                <div class="row">
+                    <h3 class="display-5" id="cashE">Money: 123</h3>
+                </div>
+                <div class="row">
+                    <h3 class="display-5" id="cashO">Money: 123</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container my-5">
+        <div class="row">
+            <div class="col col-sm-12 col-lg-6 text-sm-center text-lg-center px-lg-5" id="bayar">
+                <h5 class="">History Bayar</h5>
+                <hr class="my-5">
+                <!-- <div class="row">
+                    <div class="col col-lg-4">
+                        <p class="lead">10.000</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <p class="lead">Metamoney</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <p class="lead">23:23:23</p>
+                    </div>
+                    <div class="container">
+                        <hr class="mb-5">
+                    </div>
+                </div> -->
+            </div>
+            <div class="col col-sm-12 col-lg-6 text-sm-center text-lg-center px-lg-5">
+                <div class="row text-center mb-5">
+                    <div class="col col-lg-12 text-center" id="transferMasuk">
+                        <h5 class="">History Transfer Masuk</h5>
+                        <hr class="my-5">
+                        <!-- <div class="row">
+                            <div class="col col-lg-4">
+                                <p class="lead">10.000</p>
+                            </div>
+                            <div class="col col-lg-4">
+                                <p class="lead">123abc</p>
+                            </div>
+                            <div class="col col-lg-4">
+                                <p class="lead">23:23:23</p>
+                            </div>
+                            <div class="container">
+                                <hr class="mb-5">
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col col-lg-12 text-center" id="transferKeluar">
+                        <h5 class="">History Transfer Keluar</h5>
+                        <hr class="my-5">
+                        <!-- <div class="row">
+                            <div class="col col-lg-4">
+                                <p class="lead">10.000</p>
+                            </div>
+                            <div class="col col-lg-4">
+                                <p class="lead">123abc</p>
+                            </div>
+                            <div class="col col-lg-4">
+                                <p class="lead">23:23:23</p>
+                            </div>
+                            <div class="container">
+                                <hr class="mb-5">
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col col-lg-6 col-sm-12">
+                <h4 class="">Topup</h3>
+                <form action="post" id="form">
+                    <div class="form-group mt-3">
+                        <label for="jumlah">Jumlah</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="jumlah"
+                            aria-describedby="jumlah"
+                            placeholder="Masukkan jumlah topup"
+                            name="jumlah"
+                            required
+                        />
+                        <small id="jumlah" class="form-text text-muted"
+                            >Topup dompet anda!
+                        </small
+                        >
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg mt-4" id="submit">
+                    Topup
+                    </button>
+                </form>
+            </div>
+            <div class="col col-lg-6 col-sm-12 mt-sm-3 text-center" id="topup">
+                <h5 class="">History Topup</h5>
+                <hr class="my-5">
+                <!-- <div class="row">
+                    <div class="col col-lg-4">
+                        <p class="lead">10.000</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <p class="lead">Metamoney</p>
+                    </div>
+                    <div class="col col-lg-4">
+                        <p class="lead">23:23:23</p>
+                    </div>
+                    <div class="container">
+                        <hr class="mb-5">
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous">
+    </script>
+
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    const tokenMeta = getCookie("masuk");
+    const tokenHarpay = getCookie("harpay");
+    const tokenEcia = getCookie("ecia");
+    const tokenOtakupay = getCookie("otakupay");
+    let idUser = '';
+
+    // bayar
+    $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/history/pays',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenMeta);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    for (let i = 0; i < data.data.length; i++) {
+                        $('#bayar').append(
+                            '<div class="row">' +
+                               ' <div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].jumlah + '</p>' +
+                                '</div>' +
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].metode + '</p>' +
+                                '</div>' + 
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].waktu + '</p>' +
+                                '</div>' +
+                                '<div class="container">' +
+                                    '<hr class="mb-5">' +
+                                '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        // transfer in
+        $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/history/transfer/in',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenMeta);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    for (let i = 0; i < data.data.length; i++) {
+                        $('#transferMasuk').append(
+                            '<div class="row">' +
+                               ' <div class="col col-lg-4">' +
+                                    '<p class="lead">' + '+ ' + data.data[i].jumlah + '</p>' +
+                                '</div>' +
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].asal + '</p>' +
+                                '</div>' + 
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].waktu + '</p>' +
+                                '</div>' +
+                                '<div class="container">' +
+                                    '<hr class="mb-5">' +
+                                '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        // transfer out
+        $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/history/transfer/out',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenMeta);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    for (let i = 0; i < data.data.length; i++) {
+                        $('#transferKeluar').append(
+                            '<div class="row">' +
+                               ' <div class="col col-lg-4">' +
+                                    '<p class="lead">' + '- ' + data.data[i].jumlah + '</p>' +
+                                '</div>' +
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].tujuan + '</p>' +
+                                '</div>' + 
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].waktu + '</p>' +
+                                '</div>' +
+                                '<div class="container">' +
+                                    '<hr class="mb-5">' +
+                                '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        // topup
+        $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/history/topup',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenMeta);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    for (let i = 0; i < data.data.length; i++) {
+                        $('#topup').append(
+                            '<div class="row">' +
+                               ' <div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].jumlah + '</p>' +
+                                '</div>' +
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].name + '</p>' +
+                                '</div>' + 
+                                '<div class="col col-lg-4">' +
+                                    '<p class="lead">' + data.data[i].waktu + '</p>' +
+                                '</div>' +
+                                '<div class="container">' +
+                                    '<hr class="mb-5">' +
+                                '</div>' +
+                            '</div>'
+                        );
+                    }
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        // user
+        $.ajax({
+            type: 'GET',
+            url: 'https://met4kantin.herokuapp.com/api/profile',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenMeta);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    $('#nama').html('Hello, ' + data.data.name);
+                    $('#uid').html('ID: '+data.data.uid);
+                    $('#cash').html('Meta Money: ' + data.data.cash);
+                    idUser = data.data.uid;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: 'https://api-ecia.herokuapp.com/api/profile',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenEcia);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    $('#cashE').html('Ecia Money: ' + data.jumlah);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: 'https://harpay-api.herokuapp.com/transaksi/cekSaldo',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenHarpay);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    $('#cashH').html('Harpay Money: ' + data.saldo);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: 'https://opay-v2.herokuapp.com/user',
+            dataType: "json",
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenOtakupay);
+                },
+            success: function (data) {
+                console.log(data);
+                if (data) {
+                    $('#cashO').html('Otaku Money: ' + data.data.balance);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + textStatus + ': ' + errorThrown);
+            }
+        });
+</script>
+<script>
+    $(() => {
+      $("#form").submit(function (event) {
+        event.preventDefault();
+        var formData = {
+          jumlah: $("#jumlah").val(),
+        };
+
+        $.ajax({
+          type: "PUT",
+          url: "https://met4kantin.herokuapp.com/api/profile/" + idUser,
+          data: formData,
+          dataType: "json",
+          encode: true,
+          beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + tokenMeta);
+                },
+          success: function(data) {
+            alert(data.message);
+            location.reload();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            const myObj = JSON.parse(jqXHR.responseText);     
+            alert(myObj.message);
+          }
+        });
+
+        
+      });
+    });
+</script>
+</body>
+</html>

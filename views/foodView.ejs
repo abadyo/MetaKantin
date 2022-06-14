@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+                shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <title>MetaKantin</title>
+    </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">MetaKantin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-contr ols="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">API</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/abadyo/MetaKantin">Documentation</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <div class="dropdown-divider"></div>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:history.back()">Back</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="my-5 text-center">
+            <img src="https://i.postimg.cc/BvRN7M07/MK.png" alt="" style="max-width: 20%;" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="jumbotron jumbotron-fluid"
+        style="background-image: url('https://via.placeholder.com/150'); background-size: cover; height: 30rem;">
+        <div class="container">
+            <h1 class="display-4 text-center"><%= nama %></h1>
+            <br>
+            <hr class="my-2">
+            <br>
+            <p class="lead text-center mb-5"><%= deskripsi %></p>
+            <h3 class="text-center mb-5"><%= harga %></h3>
+            <div class="col text-center">
+            </div>
+        </div>
+        <div class="container" style="background-color: #ffffff; border-radius: 1rem;">
+            <div class="container p-5">
+                <h3 class="text-center mb-5">Pilih metode pembayaran anda.</h3>
+                <div class="row text-center">
+                    <div class="col col-lg-3 col-sm-6">
+                        <a href="" class="btn btn-lg btn-outline-warning btn-block mb-3" autocomplete="off" data-toggle="collapse" data-target="#formMetaMoney" aria-expanded="false" aria-controls="collapseExample">Metamoney</a>
+                    </div>
+                    <div class="col col-lg-3 col-sm-6">
+                        <a href="" class="btn btn-lg btn-outline-warning btn-block mb-3" autocomplete="off" data-toggle="collapse" data-target="#formHarpayPay" aria-expanded="false" aria-controls="collapseExample">Harpay</a>
+                    </div>
+                    <div class="col col-lg-3 col-sm-6">
+                        <a href="" class="btn btn-lg btn-outline-warning btn-block mb-3" autocomplete="off" data-toggle="collapse" data-target="#formEcia" aria-expanded="false" aria-controls="collapseExample">Ecia</a>
+                    </div>
+                    <div class="col col-lg-3 col-sm-6">
+                        <a href="" class="btn btn-lg btn-outline-warning btn-block mb-3" autocomplete="off" data-toggle="collapse" data-target="#formOtakuPay" aria-expanded="false" aria-controls="collapseExample">Otakupay</a>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <!-- Metamoney -->
+                    <form action="/api/pay" method="post" class="collapse" id="formMetaMoney">
+                        <div class="my-5">
+                            <h2 class="display-4">Metamoney</h2>
+                            <p>Use our built-in E-Wallet!</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="wallet">Metode Bayar</label>
+                            <input type="text" readonly class="form-control" id="walletM" name="wallet" value="metamoney">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="number" readonly class="form-control" id="harga" name="harga" value=<%= harga %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="fuid">ID makanan</label>
+                            <input type="text" readonly class="form-control" id="fuid" name="fuid" value=<%= fuid %>>
+                        </div>
+                        <button type="submit" class="btn btn-primary my-3">Submit</button>
+                        <hr class="my-3">
+                    </form>
+
+                    <!-- harpay -->
+                    <form action="/api/pay" method="post" class="collapse" id="formHarpayPay">
+                        <div class="my-5">
+                            <h2 class="display-4">Harpay</h2>
+                            <p>Use other E-money from other group!</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="wallet">Metode Bayar</label>
+                            <input type="text" readonly class="form-control" id="walletH" name="wallet" value="harpay">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="number" readonly class="form-control" id="harga" name="harga" value=<%= harga %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="fuid">ID makanan</label>
+                            <input type="text" readonly class="form-control" id="fuid" name="fuid" value=<%= fuid %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="emailH" name="emailH" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="passwordH" placeholder="password" name="passwordH">
+                        </div>
+                        <div class="form-group">
+                            <label for="pin">PIN</label>
+                            <input type="number" class="form-control" id="pin" name="pin" placeholder="XXXXXX">
+                        </div>
+                        <button type="submit" class="btn btn-primary my-3">Submit</button>
+                        <hr class="my-3">
+                    </form>
+
+                    <!-- Ecia -->
+                    <form action="/api/pay" method="post" class="collapse" id="formEcia">
+                        <div class="my-5">
+                            <h2 class="display-4">Ecia</h2>
+                            <p>Cia cia cia cia cia cia!</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="wallet">Metode Bayar</label>
+                            <input type="text" readonly class="form-control" id="walletE" name="wallet" value="ecia">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="number" readonly class="form-control" id="harga" name="harga" value=<%= harga %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="fuid">ID makanan</label>
+                            <input type="text" readonly class="form-control" id="fuid" name="fuid" value=<%= fuid %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="emailE" name="emailE" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="passE" placeholder="password" name="passE">
+                        </div>
+                        <button type="submit" class="btn btn-primary my-3">Submit</button>
+                        <hr class="my-3">
+                    </form>
+
+                    <!-- otakupay -->
+                    <form action="/api/pay" method="post" class="collapse" id="formOtakuPay">
+                        <div class="my-5">
+                            <h2 class="display-4">Otaku Pay</h2>
+                            <p>When weebs become capitalist!</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="wallet">Metode Bayar</label>
+                            <input type="text" readonly class="form-control" id="walletO" name="wallet" value="otakupay">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga</label>
+                            <input type="number" readonly class="form-control" id="harga" name="harga" value=<%= harga %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="fuid">ID makanan</label>
+                            <input type="text" readonly class="form-control" id="fuid" name="fuid" value=<%= fuid %>>
+                        </div>
+                        <div class="form-group">
+                            <label for="usernameO">Username</label>
+                            <input type="text" class="form-control" id="usernameO" name="usernameO" placeholder="username">
+                        <div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="passwordO" placeholder="password" name="passwordO">
+                        </div>
+                        <button type="submit" class="btn btn-primary my-3">Submit</button>
+                        <hr class="my-3">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous">
+    </script>
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+        const token = getCookie("masuk");
+        $(() => {
+        $("#formMetaMoney").submit(function (event) {
+            event.preventDefault();
+            var formData = {
+            fuid: $("#fuid").val(),
+            wallet: $("#walletM").val(),
+            harga: $("#harga").val(),
+            };
+
+            $.ajax({
+            type: "POST",
+            url: "https://met4kantin.herokuapp.com/api/transaksi",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                    },
+            success: function(data) {
+                alert(data.message);
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                const myObj = JSON.parse(jqXHR.responseText);     
+                alert(myObj.message);
+            }
+            });
+        });
+        });
+
+        $(() => {
+            $("#formHarpayPay").submit(function (event) {
+            event.preventDefault();
+            var formData = {
+            fuid: $("#fuid").val(),
+            wallet: $("#walletH").val(),
+            harga: $("#harga").val(),
+            emailH: $("#emailH").val(),
+            passwordH: $("#passwordH").val(),
+            pin: parseInt($("#pin").val(), 10),
+            };
+            
+            console.log(formData);
+            
+            $.ajax({
+            type: "POST",
+            url: "https://met4kantin.herokuapp.com/api/transaksi",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                    },
+            success: function(data) {
+                alert(data.message);
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                const myObj = JSON.parse(jqXHR.responseText);     
+                alert(myObj.message);
+            }
+            });
+        });
+        });
+
+        $(() => {
+            $("#formEcia").submit(function (event) {
+            event.preventDefault();
+            var formData = {
+            fuid: $("#fuid").val(),
+            wallet: $("#walletE").val(),
+            harga: $("#harga").val(),
+            emailE: $("#emailE").val(),
+            passE: $("#passE").val(),
+            };
+
+            $.ajax({
+            type: "POST",
+            url: "https://met4kantin.herokuapp.com/api/transaksi",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                    },
+            success: function(data) {
+                alert(data.message);
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                const myObj = JSON.parse(jqXHR.responseText);     
+                alert(myObj.message);
+            }
+            });
+        });
+        });
+
+        $(() => {
+            $("#formOtakuPay").submit(function (event) {
+            event.preventDefault();
+            var formData = {
+            fuid: $("#fuid").val(),
+            wallet: $("#walletO").val(),
+            harga: $("#harga").val(),
+            usernameO: $("#usernameO").val(),
+            passwordO: $("#passwordO").val(),
+            };
+
+            $.ajax({
+            type: "POST",
+            url: "https://met4kantin.herokuapp.com/api/transaksi",
+            data: formData,
+            dataType: "json",
+            encode: true,
+            beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                    },
+            success: function(data) {
+                alert(data.message);
+                location.reload();
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                const myObj = JSON.parse(jqXHR.responseText);     
+                alert(myObj.message);
+            }
+            });
+        });
+        });
+    </script>
+</body>
+</html>
